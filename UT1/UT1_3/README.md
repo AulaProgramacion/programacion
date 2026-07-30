@@ -19,10 +19,11 @@
 13. [Cadenas de texto (String)](#13-cadenas-de-texto-string)
 14. [Caracteres de escape](#14-caracteres-de-escape)
 15. [Entrada de datos por teclado](#15-entrada-de-datos-por-teclado)
-16. [Métodos de Scanner](#16-m%C3%A9todos-de-scanner)
+16. [De texto a número](#16-de-texto-a-n%C3%BAmero)
 17. [Comentarios](#17-comentarios)
 18. [Prácticas propuestas](#18-pr%C3%A1cticas-propuestas)
 19. [Otros ejercicios](#19-otros-ejercicios)
+20. [ANEXO. Scanner](#20-anexo-scanner)
 
 ## 1. ¿Solo usamos literales?
 
@@ -33,7 +34,7 @@ Imagina un programa que siempre sume los mismos números:
 ```java
 public class SumaFija {
     public static void main(String[] args) {
-        System.out.println("La suma de 5 + 3 es: " + (5 + 3));
+        IO.println("La suma de 5 + 3 es: " + (5 + 3));
     }
 }
 ```
@@ -168,7 +169,7 @@ a = b = c = 0;
 
 ```java
 int numero = 10;        
-System.out.println(numero == 10); // Imprimirá true
+IO.println(numero == 10); // Imprimirá true
 ```
 
 ### 4.4 Reserva de memoria
@@ -315,7 +316,7 @@ public class EjemploVariables {
         variable2 = variable1 + 5;         // variable2 = 32 + 5 = 37
         variable1 = 40;                    // variable1 cambia, pero variable2 mantiene 37
         
-        System.out.println(variable2);     // Imprime: 37
+        IO.println(variable2);     // Imprime: 37
     }
 }
 ```
@@ -359,7 +360,7 @@ public class DivideYSuma {
         // Equivale a: (20.0 / 6.0) + 3.0
         double resultado = (dividendo / divisor) + sumarAlFinal;
         
-        System.out.println("El resultado es: " + resultado);
+        IO.println("El resultado es: " + resultado);
         // Salida: El resultado es: 6.333333333333333
     }
 }
@@ -447,7 +448,7 @@ public class OperadoresAsignacion {
         numero /= 4;    // numero = 6
         numero %= 4;    // numero = 2
         
-        System.out.println("Resultado final: " + numero); // 2
+        IO.println("Resultado final: " + numero); // 2
     }
 }
 ```
@@ -473,7 +474,7 @@ public class IncrementoDecremento {
         // Postdecremento
         c = b--;    // c = 4, b = 3
         
-        System.out.println("a=" + a + ", b=" + b + ", c=" + c);
+        IO.println("a=" + a + ", b=" + b + ", c=" + c);
         // Salida: a=5, b=3, c=4
     }
 }
@@ -586,7 +587,7 @@ public class EjemploConstantes {
         // ❌ Error de compilación: no se puede reasignar
         // PRECIO_BASE = 150.0;  // Error!
         
-        System.out.println("Precio final: " + precioFinal);
+        IO.println("Precio final: " + precioFinal);
     }
 }
 ```
@@ -628,7 +629,7 @@ public class ConversionesImplicitas {
         double b = 2.5;
         double resultado = a + b;   // ✅ a se convierte a 5.0
         
-        System.out.println("Resultado: " + resultado); // 7.5
+        IO.println("Resultado: " + resultado); // 7.5
     }
 }
 ```
@@ -677,10 +678,10 @@ public class ConversionesExplicitas {
         int grande = 300;
         byte pequeno = (byte) grande; // pequeno = 44 (300 - 256)
         
-        System.out.println("valor: " + valor + ", entero: " + entero);
-        System.out.println("codigo: " + codigo + ", letra: " + letra);
-        System.out.println("caracter: " + caracter + ", ascii: " + ascii);
-        System.out.println("grande: " + grande + ", pequeno: " + pequeno);
+        IO.println("valor: " + valor + ", entero: " + entero);
+        IO.println("codigo: " + codigo + ", letra: " + letra);
+        IO.println("caracter: " + caracter + ", ascii: " + ascii);
+        IO.println("grande: " + grande + ", pequeno: " + pequeno);
     }
 }
 ```
@@ -703,7 +704,7 @@ public class ConversionesOperaciones {
         // Operaciones con literales
         byte c = 10 + 20;               // ✅ OK: literales en tiempo de compilación
         
-        System.out.println("suma1: " + suma1 + ", suma2: " + suma2 + ", c: " + c);
+        IO.println("suma1: " + suma1 + ", suma2: " + suma2 + ", c: " + c);
     }
 }
 ```
@@ -724,13 +725,13 @@ Java proporciona varios métodos para mostrar información en la consola:
 public class SalidaDatos {
     public static void main(String[] args) {
         // print: sin salto de línea
-        System.out.print("Hola ");
-        System.out.print("mundo");
+        IO.print("Hola ");
+        IO.print("mundo");
         // Salida: Hola mundo
         
         // println: con salto de línea
-        System.out.println("Primera línea");
-        System.out.println("Segunda línea");
+        IO.println("Primera línea");
+        IO.println("Segunda línea");
         // Salida:
         // Primera línea
         // Segunda línea
@@ -738,7 +739,7 @@ public class SalidaDatos {
         // Concatenación con variables
         String nombre = "Ana";
         int edad = 25;
-        System.out.println("Me llamo " + nombre + " y tengo " + edad + " años");
+        IO.println("Me llamo " + nombre + " y tengo " + edad + " años");
     }
 }
 ```
@@ -807,8 +808,8 @@ public class EjemploString {
         String apellido = "García";
         String nombreCompleto = nombre + " " + apellido;
         
-        System.out.println(texto);
-        System.out.println("Nombre completo: " + nombreCompleto);
+        IO.println(texto);
+        IO.println("Nombre completo: " + nombreCompleto);
     }
 }
 ```
@@ -830,9 +831,9 @@ public class ConcatenacionStrings {
         String mensaje2 = nombre + " tiene " + edad + " años";
         
         // Concatenación en println
-        System.out.println("El resultado de 5 + 3 es: " + (5 + 3));
-        System.out.println("5 + 3 = " + 5 + 3);        // "5 + 3 = 53"
-        System.out.println("5 + 3 = " + (5 + 3));      // "5 + 3 = 8"
+        IO.println("El resultado de 5 + 3 es: " + (5 + 3));
+        IO.println("5 + 3 = " + 5 + 3);        // "5 + 3 = 53"
+        IO.println("5 + 3 = " + (5 + 3));      // "5 + 3 = 8"
         
         // Ejemplo práctico
         double dividendo = 18954.74;
@@ -840,7 +841,7 @@ public class ConcatenacionStrings {
         double resultado = dividendo / divisor;
         String mensajeFinal = "El resultado obtenido es " + resultado + ".";
         
-        System.out.println(mensajeFinal);
+        IO.println(mensajeFinal);
     }
 }
 ```
@@ -858,16 +859,16 @@ public class ComparacionStrings {
         String s3 = new String("HOLA");
         
         // ❌ Comparación incorrecta (compara referencias)
-        System.out.println(s1 == s2);      // puede ser true o false
-        System.out.println(s1 == s3);      // false
+        IO.println(s1 == s2);      // puede ser true o false
+        IO.println(s1 == s3);      // false
         
         // ✅ Comparación correcta (compara contenido)
-        System.out.println(s1.equals(s2)); // true
-        System.out.println(s1.equals(s3)); // true
-        System.out.println(s1.equals("Hola")); // false (sensible a mayúsculas)
+        IO.println(s1.equals(s2)); // true
+        IO.println(s1.equals(s3)); // true
+        IO.println(s1.equals("Hola")); // false (sensible a mayúsculas)
         
         // Ignorar mayúsculas/minúsculas
-        System.out.println(s1.equalsIgnoreCase("hola")); // true
+        IO.println(s1.equalsIgnoreCase("hola")); // true
     }
 }
 ```
@@ -891,22 +892,22 @@ Los **caracteres de escape** permiten incluir caracteres especiales en las caden
 public class CaracteresEscape {
     public static void main(String[] args) {
         // Tabulaciones y saltos de línea
-        System.out.println("Línea 1\n\tLínea 2\nLínea 3");
+        IO.println("Línea 1\n\tLínea 2\nLínea 3");
         // Salida:
         // Línea 1
         //     Línea 2  
         // Línea 3
         
         // Comillas en texto
-        System.out.println("Él dijo: \"¡Hola mundo!\"");
+        IO.println("Él dijo: \"¡Hola mundo!\"");
         // Salida: Él dijo: "¡Hola mundo!"
         
         // Rutas de archivos (Windows)
-        System.out.println("Ruta: C:\\Users\\Usuario\\Documents\\archivo.txt");
+        IO.println("Ruta: C:\\Users\\Usuario\\Documents\\archivo.txt");
         // Salida: Ruta: C:\Users\Usuario\Documents\archivo.txt
         
         // Caracteres combinados
-        System.out.println("Nombre:\tJuan\nEdad:\t25\nCiudad:\tMadrid");
+        IO.println("Nombre:\tJuan\nEdad:\t25\nCiudad:\tMadrid");
         // Salida:
         // Nombre:    Juan
         // Edad:      25
@@ -920,174 +921,72 @@ public class CaracteresEscape {
 ```java
 public class TablaFormateada {
     public static void main(String[] args) {
-        System.out.println("PRODUCTO\tPRECIO\tSTOCK");
-        System.out.println("--------\t------\t-----");
-        System.out.println("Laptop\t\t899.99\t5");
-        System.out.println("Mouse\t\t25.50\t20");
-        System.out.println("Teclado\t\t45.00\t12");
+        IO.println("PRODUCTO\tPRECIO\tSTOCK");
+        IO.println("--------\t------\t-----");
+        IO.println("Laptop\t\t899.99\t5");
+        IO.println("Mouse\t\t25.50\t20");
+        IO.println("Teclado\t\t45.00\t12");
         
         // También con println separado
-        System.out.println();
-        System.out.println("\"El conocimiento es poder\" - Francis Bacon");
-        System.out.println("Carpeta: C:\\Programas\\Java\\bin\\javac.exe");
+        IO.println();
+        IO.println("\"El conocimiento es poder\" - Francis Bacon");
+        IO.println("Carpeta: C:\\Programas\\Java\\bin\\javac.exe");
     }
 }
 ```
 
 ## 15. Entrada de datos por teclado
 
-### 15.1 Clase Scanner
-
-Para leer datos del usuario usamos la clase `Scanner`:
+Para leer datos introducidos por el usuario, desde JDK 25 usamos la clase `java.lang.IO` y su método `readln`, que detiene la ejecución, espera a que el usuario escriba algo y pulse *Enter*, y devuelve siempre el texto como `String`.
 
 ```java
-import java.util.Scanner;  // Importación obligatoria
-
 public class EntradaDatos {
     public static void main(String[] args) {
-        // Crear objeto Scanner
-        Scanner teclado = new Scanner(System.in);
-        
-        // Leer diferentes tipos de datos
-        System.out.print("Introduce tu nombre: ");
-        String nombre = teclado.nextLine();
-        
-        System.out.print("Introduce tu edad: ");
-        int edad = teclado.nextInt();
-        teclado.nextLine();
-        
-        System.out.print("Introduce tu altura (metros): ");
-        double altura = teclado.nextDouble();
-        teclado.nextLine();
-        
-        // Mostrar resultados
-        System.out.println("\n--- DATOS INTRODUCIDOS ---");
-        System.out.println("Nombre: " + nombre);
-        System.out.println("Edad: " + edad + " años");
-        System.out.printf("Altura: %.2f metros%n", altura);
-        
-        // Cerrar Scanner (buena práctica)
-        teclado.close();
+        String nombre = IO.readln("Introduce tu nombre: ");
+        String edadTexto = IO.readln("Introduce tu edad: ");
+        String alturaTexto = IO.readln("Introduce tu altura (metros): ");
+
+        IO.println("--- DATOS INTRODUCIDOS ---");
+        IO.println("Nombre: " + nombre);
+        IO.println("Edad (texto): " + edadTexto);
+        IO.println("Altura (texto): " + alturaTexto);
     }
 }
 ```
 
-### 15.2 Ejemplo completo: cálculo de salario
+> [!NOTE]
+> Fíjate en que `edadTexto` y `alturaTexto` siguen siendo `String`, no números. Para operar con ellos aritméticamente hace falta convertirlos primero, tal y como veremos en el siguiente apartado.
+
+> [!TIP]
+> A diferencia de la antigua clase `Scanner`, `readln` siempre lee una línea completa de una sola vez: no existe el problema de mezclar lecturas de números y de texto que veremos más adelante como caso legacy (Anexo, sección 20).
+
+## 16. De texto a número
+
+Para convertir el texto leído en un número usamos los métodos estáticos `Integer.parseInt` (para enteros) y `Double.parseDouble` (para decimales):
 
 ```java
-import java.util.Scanner;
-
 public class CalculoSalario {
     public static void main(String[] args) {
-        String nombre;
-        int horas;
-        double pagoPorHora, pagoTotal;
-        
-        Scanner teclado = new Scanner(System.in);
-        
-        System.out.print("¿Cómo te llamas? ");
-        nombre = teclado.Line();
-        
-        System.out.print("¿Cuántas horas trabajas esta semana? ");
-        horas = teclado.nextInt();
-        teclado.nextLine();
-        
-        System.out.print("¿Cuánto te pagan por hora? ");
-        pagoPorHora = teclado.nextDouble();
-        teclado.nextLine();
-        
-        teclado.close();
-        
-        // Calcular salario
-        pagoTotal = horas * pagoPorHora;
-        
-        // Mostrar resultado
-        System.out.println("\n--- CÁLCULO DE SALARIO ---");
-        System.out.println("Hola " + nombre);
+        String nombre = IO.readln("¿Cómo te llamas? ");
+        String textoHoras = IO.readln("¿Cuántas horas trabajas esta semana? ");
+        String textoPago = IO.readln("¿Cuánto te pagan por hora? ");
+
+        int horas = Integer.parseInt(textoHoras);
+        double pagoPorHora = Double.parseDouble(textoPago);
+        double pagoTotal = horas * pagoPorHora;
+
+        IO.println("--- CÁLCULO DE SALARIO ---");
+        IO.println("Hola, " + nombre);
         System.out.printf("Tu salario semanal es de %.2f €%n", pagoTotal);
     }
 }
 ```
 
-## 16. Métodos de Scanner
+> [!WARNING]
+> `Integer.parseInt` y `Double.parseDouble` **fallan y detienen el programa** (lanzan una excepción) si el texto introducido no representa realmente un número válido — por ejemplo, si el usuario escribe "veinte" en letras o deja el campo vacío. De momento asumiremos que el usuario siempre introduce datos correctos; más adelante aprenderemos a comprobar la entrada antes de convertirla, y en la unidad de Control de Excepciones veremos cómo gestionar este fallo de forma robusta.
 
-### 16.1 Métodos principales
-
-| Método | Tipo de retorno | Descripción |
-| :-- | :-- | :-- |
-| `nextByte()` | `byte` | Lee un entero de 8 bits |
-| `nextShort()` | `short` | Lee un entero de 16 bits |
-| `nextInt()` | `int` | Lee un entero de 32 bits |
-| `nextLong()` | `long` | Lee un entero de 64 bits |
-| `nextFloat()` | `float` | Lee un real de precisión simple |
-| `nextDouble()` | `double` | Lee un real de precisión doble |
-| `nextBoolean()` | `boolean` | Lee `true` o `false` |
-| `next()` | `String` | Lee una palabra (hasta espacio) |
-| `nextLine()` | `String` | Lee una línea completa |
-
-### 16.2 Diferencia entre next() y nextLine()
-
-```java
-import java.util.Scanner;
-
-public class DiferenciaNext {
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        
-        System.out.print("Escribe tu nombre completo: ");
-        String nombre1 = scanner.next();        // Solo lee hasta el primer espacio
-        String apellido = scanner.next();       // Lee la siguiente palabra
-        
-        System.out.println("Nombre: " + nombre1);
-        System.out.println("Apellido: " + apellido);
-        
-        scanner.nextLine(); // Consume el salto de línea pendiente
-        
-        System.out.print("Escribe tu dirección completa: ");
-        String direccion = scanner.nextLine();  // Lee toda la línea
-        
-        System.out.println("Dirección: " + direccion);
-        
-        scanner.close();
-    }
-}
-```
-
-### 16.3 Problema común: mezclar nextInt() y nextLine()
-
-```java
-import java.util.Scanner;
-
-public class ProblemaScanner {
-    public static void main(String[] args) {
-        Scanner input = new Scanner(System.in);
-        
-        System.out.print("Introduce un número: ");
-        int numero = input.nextInt();           // Lee número pero deja \n
-        
-        System.out.print("Texto 1: ");
-        String texto1 = input.nextLine();      // Lee el \n pendiente (cadena vacía)
-        
-        System.out.print("Texto 2: ");
-        String texto2 = input.nextLine();      // Ahora sí lee el texto
-        
-        System.out.println("Número: " + numero);
-        System.out.println("Texto 1: '" + texto1 + "'");  // Vacío
-        System.out.println("Texto 2: '" + texto2 + "'");
-        
-        input.close();
-    }
-}
-```
-
-> [!TIP]
-> **Solución al problema anterior:**
->
-> ```java
-> int numero = input.nextInt(); 
-> input.nextLine(); // Consume el \n pendiente 
-> String texto1 = input.nextLine(); // Ahora funciona correctamente 
-> ```
+> [!NOTE]
+> Este ejemplo combina `IO.println` para la interacción con `System.out.printf` para el formato numérico, ya que `IO` no dispone de una versión con formato equivalente a `printf`.
 
 ## 17. Comentarios
 
@@ -1104,7 +1003,7 @@ Los **comentarios** son texto que se incluye en el código fuente para **explica
 public class Ejemplo {
     public static void main(String[] args) {
         int edad = 25;  // Comentario al final de línea
-        System.out.println("Edad: " + edad);
+        IO.println("Edad: " + edad);
     }
 }
 ```
@@ -1125,7 +1024,7 @@ public class EjemploComentarios {
          */
         double radio = 5.0;
         double area = Math.PI * radio * radio;
-        System.out.println("Área: " + area);
+        IO.println("Área: " + area);
     }
 }
 ```
@@ -1251,11 +1150,11 @@ public class DivisionYSumaModificado {
         double resultadoDivision = dividendo / divisor;
         double resultadoFinal = resultadoDivision + sumarAlFinal;
         
-        System.out.println("Dividendo: " + dividendo);
-        System.out.println("Divisor: " + divisor);
-        System.out.println("Resultado división: " + resultadoDivision);
-        System.out.println("Suma al final: " + sumarAlFinal);
-        System.out.println("Resultado final: " + resultadoFinal);
+        IO.println("Dividendo: " + dividendo);
+        IO.println("Divisor: " + divisor);
+        IO.println("Resultado división: " + resultadoDivision);
+        IO.println("Suma al final: " + sumarAlFinal);
+        IO.println("Resultado final: " + resultadoFinal);
     }
 }
 ```
@@ -1277,27 +1176,27 @@ public class TablaMultiplicar4 {
         
         // Primera multiplicación: 4 × 1
         int resultado = base * contador;
-        System.out.println(base + " × " + contador + " = " + resultado);
+        IO.println(base + " × " + contador + " = " + resultado);
         contador++;
         
         // Segunda multiplicación: 4 × 2  
         resultado = base * contador;
-        System.out.println(base + " × " + contador + " = " + resultado);
+        IO.println(base + " × " + contador + " = " + resultado);
         contador++;
         
         // Tercera multiplicación: 4 × 3
         resultado = base * contador;
-        System.out.println(base + " × " + contador + " = " + resultado);
+        IO.println(base + " × " + contador + " = " + resultado);
         contador++;
         
         // Cuarta multiplicación: 4 × 4
         resultado = base * contador;
-        System.out.println(base + " × " + contador + " = " + resultado);
+        IO.println(base + " × " + contador + " = " + resultado);
         contador++;
         
         // Quinta multiplicación: 4 × 5
         resultado = base * contador;
-        System.out.println(base + " × " + contador + " = " + resultado);
+        IO.println(base + " × " + contador + " = " + resultado);
     }
 }
 ```
@@ -1315,27 +1214,27 @@ Copia el programa de caracteres de control y modifica para usar todos los caract
 public class CaracteresControl {
     public static void main(String[] args) {
         // Programa original
-        System.out.println("Línea 1\n\tLínea 2\nLínea 3");
+        IO.println("Línea 1\n\tLínea 2\nLínea 3");
         
-        System.out.println("\n--- DEMOSTRACIÓN DE CARACTERES ESPECIALES ---");
+        IO.println("\n--- DEMOSTRACIÓN DE CARACTERES ESPECIALES ---");
         
         // Tabulador y nueva línea
-        System.out.println("Nombre:\tJuan\nEdad:\t25");
+        IO.println("Nombre:\tJuan\nEdad:\t25");
         
         // Comillas simples y dobles
-        System.out.println("Ella dijo: \"¡Qué día tan hermoso!\"");
-        System.out.println("El símbolo \' se llama comilla simple");
+        IO.println("Ella dijo: \"¡Qué día tan hermoso!\"");
+        IO.println("El símbolo \' se llama comilla simple");
         
         // Contrabarra
-        System.out.println("Ruta en Windows: C:\\Users\\Usuario\\Desktop");
-        System.out.println("Expresión regular: \\d+ busca dígitos");
+        IO.println("Ruta en Windows: C:\\Users\\Usuario\\Desktop");
+        IO.println("Expresión regular: \\d+ busca dígitos");
         
         // Retorno de carro (menos común)
-        System.out.print("Texto que se sobrescribe\rNuevo texto");
-        System.out.println(); // Salto final
+        IO.print("Texto que se sobrescribe\rNuevo texto");
+        IO.println(); // Salto final
         
         // Combinando varios caracteres
-        System.out.println("\"Hola\\mundo\"\n\tcon tabulación y\n\tsaltos de línea");
+        IO.println("\"Hola\\mundo\"\n\tcon tabulación y\n\tsaltos de línea");
     }
 }
 ```
@@ -1355,28 +1254,28 @@ public class TablaVerdadOR {
         boolean a, b;
         
         // Encabezado de la tabla
-        System.out.println("A\tB\tA || B");
-        System.out.println("-----\t-----\t-------");
+        IO.println("A\tB\tA || B");
+        IO.println("-----\t-----\t-------");
         
         // Fila 1: false || false = false
         a = false;
         b = false;
-        System.out.println(a + "\t" + b + "\t" + (a || b));
+        IO.println(a + "\t" + b + "\t" + (a || b));
         
         // Fila 2: false || true = true
         a = false;
         b = true;
-        System.out.println(a + "\t" + b + "\t" + (a || b));
+        IO.println(a + "\t" + b + "\t" + (a || b));
         
         // Fila 3: true || false = true
         a = true;
         b = false;
-        System.out.println(a + "\t" + b + "\t" + (a || b));
+        IO.println(a + "\t" + b + "\t" + (a || b));
         
         // Fila 4: true || true = true
         a = true;
         b = true;
-        System.out.println(a + "\t" + b + "\t" + (a || b));
+        IO.println(a + "\t" + b + "\t" + (a || b));
     }
 }
 ```
@@ -1391,82 +1290,23 @@ Programa que muestre la multiplicación de 3 números reales introducidos por te
 <summary>💡 <strong>Solución Práctica 11</strong></summary>
 
 ```java
-import java.util.Scanner;
-
 public class MultiplicacionTresReales {
     public static void main(String[] args) {
-        Scanner teclado = new Scanner(System.in);
-        
-        // Leer los tres números
-        System.out.print("Introduce el primer número real: ");
-        double numero1 = teclado.nextDouble();
-        teclado.nextLine();
-        
-        System.out.print("Introduce el segundo número real: ");
-        double numero2 = teclado.nextDouble();
-        teclado.nextLine();
-        
-        System.out.print("Introduce el tercer número real: ");
-        double numero3 = teclado.nextDouble();
-        teclado.nextLine();
-        
-        // Calcular el producto
+        String texto1 = IO.readln("Introduce el primer número real: ");
+        String texto2 = IO.readln("Introduce el segundo número real: ");
+        String texto3 = IO.readln("Introduce el tercer número real: ");
+
+        double numero1 = Double.parseDouble(texto1);
+        double numero2 = Double.parseDouble(texto2);
+        double numero3 = Double.parseDouble(texto3);
+
         double producto = numero1 * numero2 * numero3;
-        
-        // Mostrar resultado
-        System.out.println("\n--- RESULTADO ---");
-        System.out.printf("%.2f × %.2f × %.2f = %.2f%n", 
-                         numero1, numero2, numero3, producto);
-        
-        teclado.close();
+
+        IO.println("--- RESULTADO ---");
+        System.out.printf("%.2f x %.2f x %.2f = %.2f%n", numero1, numero2, numero3, producto);
     }
 }
 ```
-
-</details>
-
-### Práctica 12: Problema con Scanner
-
-Crea y analiza el programa problemático con Scanner. Encuentra y explica la solución.
-
-<details>
-<summary>💡 <strong>Solución Práctica 12</strong></summary>
-
-```java
-import java.util.Scanner;
-
-public class ScannerCorregido {
-    public static void main(String[] args) {
-        Scanner input = new Scanner(System.in);
-        
-        System.out.print("Introduce un número: ");
-        int numero = input.nextInt();
-        
-        // SOLUCIÓN: Consumir el salto de línea pendiente
-        input.nextLine(); // Esta línea resuelve el problema
-        
-        System.out.print("Texto 1: ");
-        String texto1 = input.nextLine(); // Ahora funcionará correctamente
-        
-        System.out.print("Texto 2: ");
-        String texto2 = input.nextLine();
-        
-        // Mostrar resultados
-        System.out.println("\n--- DATOS INTRODUCIDOS ---");
-        System.out.println("Número: " + numero);
-        System.out.println("Texto 1: '" + texto1 + "'");
-        System.out.println("Texto 2: '" + texto2 + "'");
-        
-        input.close();
-    }
-}
-```
-
-**Explicación del problema:**
-
-- `nextInt()` lee el número pero **deja el salto de línea** (\n) en el buffer
-- `nextLine()` lee inmediatamente ese \n y retorna una cadena vacía
-- **Solución:** añadir `input.nextLine()` después de `nextInt()` para consumir el \n pendiente
 
 </details>
 
@@ -1609,19 +1449,19 @@ public class EjercicioVariables {
         char sexo = 'H';                          // Sexo ('H' o 'D')
 
         // Usando println
-        System.out.println("----- EJERCICIO DE VARIABLES Y TIPOS DE DATOS -----");
-        System.out.println("\tEl valor de la variable casado es " + casado);
-        System.out.println("\tEl valor de la variable MAXIMO es " + MAXIMO);
-        System.out.println("\tEl valor de la variable diaSemana es " + diaSemana);
-        System.out.println("\tEl valor de la variable diaAnual es " + diaAnual);
-        System.out.println("\tEl valor de la variable miliseg es " + miliseg);
-        System.out.println("\tEl valor de la variable totalFactura es " + totalFactura);
-        System.out.println("\tEl valor de la variable poblacion es " + poblacion);
-        System.out.println("\tEl valor de la variable sexo es " + sexo);
+        IO.println("----- EJERCICIO DE VARIABLES Y TIPOS DE DATOS -----");
+        IO.println("\tEl valor de la variable casado es " + casado);
+        IO.println("\tEl valor de la variable MAXIMO es " + MAXIMO);
+        IO.println("\tEl valor de la variable diaSemana es " + diaSemana);
+        IO.println("\tEl valor de la variable diaAnual es " + diaAnual);
+        IO.println("\tEl valor de la variable miliseg es " + miliseg);
+        IO.println("\tEl valor de la variable totalFactura es " + totalFactura);
+        IO.println("\tEl valor de la variable poblacion es " + poblacion);
+        IO.println("\tEl valor de la variable sexo es " + sexo);
 
         // Usando print (con saltos de línea manuales '\n')
-        System.out.print("----- EJERCICIO DE VARIABLES Y TIPOS DE DATOS -----\n");
-        System.out.print("\tEl valor de la variable casado es " + casado + "\n");
+        IO.print("----- EJERCICIO DE VARIABLES Y TIPOS DE DATOS -----\n");
+        IO.print("\tEl valor de la variable casado es " + casado + "\n");
         // ... (similarly for other variables) ...
 
         // Usando printf
@@ -1649,20 +1489,16 @@ Diseña un programa Java que pida dos números por teclado, determine si el prim
 <summary>Solución propuesta</summary>
 
 ```java
-import java.util.Scanner;
-
 public class Multiplo {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        System.out.print("Introduce el primer número: ");
-        int a = sc.nextInt();
-        sc.nextLine();
-        System.out.print("Introduce el segundo número: ");
-        int b = sc.nextInt();
-        sc.nextLine();
-        boolean esMultiplo = (a % b == 0);
-        System.out.println(a + " es múltiplo de " + b + ": " + esMultiplo);
-        sc.close();
+        String textoA = IO.readln("Introduce el primer número: ");
+        String textoB = IO.readln("Introduce el segundo número: ");
+
+        int a = Integer.parseInt(textoA);
+        int b = Integer.parseInt(textoB);
+
+        boolean esMultiplo = a % b == 0;
+        IO.println(a + " es múltiplo de " + b + ": " + esMultiplo);
     }
 }
 ```
@@ -1679,20 +1515,16 @@ $C1x + C2 = 0$
 <summary>Solución propuesta</summary>
 
 ```java
-import java.util.Scanner;
-
 public class EcuacionPrimerGrado {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        System.out.print("Introduce el coeficiente C1: ");
-        double C1 = sc.nextDouble();
-        sc.nextLine();
-        System.out.print("Introduce el coeficiente C2: ");
-        double C2 = sc.nextDouble();
-        sc.nextLine();
-        double x = -C2 / C1;
-        System.out.println("Solución: x = " + x);
-        sc.close();
+        String textoC1 = IO.readln("Introduce el coeficiente C1: ");
+        String textoC2 = IO.readln("Introduce el coeficiente C2: ");
+
+        double c1 = Double.parseDouble(textoC1);
+        double c2 = Double.parseDouble(textoC2);
+
+        double x = -c2 / c1;
+        IO.println("Solución: x = " + x);
     }
 }
 ```
@@ -1794,22 +1626,18 @@ Escribe un programa que sume, reste, multiplique y divida dos números introduci
 <summary>Solución propuesta</summary>
 
 ```java
-import java.util.Scanner;
-
 public class OperacionesBasicas {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        System.out.print("Introduce el primer número: ");
-        double num1 = sc.nextDouble();
-        sc.nextLine();
-        System.out.print("Introduce el segundo número: ");
-        double num2 = sc.nextDouble();
-        sc.nextLine();
-        System.out.println("Suma: " + (num1 + num2));
-        System.out.println("Resta: " + (num1 - num2));
-        System.out.println("Multiplicación: " + (num1 * num2));
-        System.out.println("División: " + (num1 / num2));
-        sc.close();
+        String textoNum1 = IO.readln("Introduce el primer número: ");
+        String textoNum2 = IO.readln("Introduce el segundo número: ");
+
+        double num1 = Double.parseDouble(textoNum1);
+        double num2 = Double.parseDouble(textoNum2);
+
+        IO.println("Suma: " + (num1 + num2));
+        IO.println("Resta: " + (num1 - num2));
+        IO.println("Multiplicación: " + (num1 * num2));
+        IO.println("División: " + (num1 / num2));
     }
 }
 ```
@@ -1826,24 +1654,18 @@ Realiza un programa que calcule la nota que necesitas sacar en el tercer trimest
 <summary>Solución propuesta</summary>
 
 ```java
-import java.util.Scanner;
-
 public class NotaNecesaria {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        System.out.print("Nota primer trimestre: ");
-        double nota1 = sc.nextDouble();
-        sc.nextLine();
-        System.out.print("Nota segundo trimestre: ");
-        double nota2 = sc.nextDouble();
-        sc.nextLine();
-        System.out.print("Nota media deseada: ");
-        double media = sc.nextDouble();
-        sc.nextLine();
-        // (nota1 + nota2 + nota3) / 3 = media -> nota3 = 3*media - nota1 - nota2
+        String textoNota1 = IO.readln("Nota primer trimestre: ");
+        String textoNota2 = IO.readln("Nota segundo trimestre: ");
+        String textoMedia = IO.readln("Nota media deseada: ");
+
+        double nota1 = Double.parseDouble(textoNota1);
+        double nota2 = Double.parseDouble(textoNota2);
+        double media = Double.parseDouble(textoMedia);
+
         double nota3 = 3 * media - nota1 - nota2;
-        System.out.println("Necesitas sacar: " + nota3);
-        sc.close();
+        IO.println("Necesitas sacar: " + nota3);
     }
 }
 ```
@@ -1890,8 +1712,172 @@ System.out.printf("%d segundos = %d h, %d min, %d seg%n", t, horas, minutos, seg
 
 </details>
 
+## 20. Anexo. Scanner
+
+> [!WARNING]
+> Este anexo se explica de forma independiente al hilo principal de la asignatura. La clase `Scanner` fue durante muchos años la forma estándar de leer datos por teclado en Java, y todavía la encontraréis en código existente, documentación antigua y proyectos heredados. Debéis conocerla para poder leer y entender ese código, pero **no** es la forma de trabajar que seguiremos este curso: nuestra herramienta principal es `IO.readln`.
+
+### 20.1 Funcionamiento básico de Scanner
+
+Para usar `Scanner`, primero hay que importarla del paquete `java.util` y crear un objeto que lea desde la entrada estándar:
+
+```java
+import java.util.Scanner; // Importación obligatoria
+
+public class EntradaDatosLegacy {
+    public static void main(String[] args) {
+        // Crear objeto Scanner
+        Scanner teclado = new Scanner(System.in);
+
+        // Leer diferentes tipos de datos
+        System.out.print("Introduce tu nombre: ");
+        String nombre = teclado.nextLine();
+
+        System.out.print("Introduce tu edad: ");
+        int edad = teclado.nextInt();
+        teclado.nextLine(); // Consume el salto de línea pendiente
+
+        System.out.print("Introduce tu altura (metros): ");
+        double altura = teclado.nextDouble();
+        teclado.nextLine();
+
+        // Mostrar resultados
+        System.out.println("--- DATOS INTRODUCIDOS ---");
+        System.out.println("Nombre: " + nombre);
+        System.out.println("Edad: " + edad + " años");
+        System.out.printf("Altura: %.2f metros%n", altura);
+
+        // Cerrar Scanner (buena práctica, obligatoria en este enfoque)
+        teclado.close();
+    }
+}
+```
+
+
+### 20.2 Métodos principales de Scanner
+
+| Método | Tipo de retorno | Descripción |
+| :-- | :-- | :-- |
+| `nextByte` | byte | Lee un entero de 8 bits |
+| `nextShort` | short | Lee un entero de 16 bits |
+| `nextInt` | int | Lee un entero de 32 bits |
+| `nextLong` | long | Lee un entero de 64 bits |
+| `nextFloat` | float | Lee un real de precisión simple |
+| `nextDouble` | double | Lee un real de precisión doble |
+| `nextBoolean` | boolean | Lee `true` o `false` |
+| `next` | String | Lee una palabra hasta el primer espacio |
+| `nextLine` | String | Lee una línea completa |
+
+### 20.3 Diferencia entre `next` y `nextLine`
+
+```java
+import java.util.Scanner;
+
+public class DiferenciaNext {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Escribe tu nombre completo: ");
+        String nombre1 = scanner.next();      // Solo lee hasta el primer espacio
+        String apellido = scanner.next();     // Lee la siguiente palabra
+
+        System.out.println("Nombre: " + nombre1);
+        System.out.println("Apellido: " + apellido);
+
+        scanner.nextLine(); // Consume el salto de línea pendiente
+
+        System.out.print("Escribe tu dirección completa: ");
+        String direccion = scanner.nextLine(); // Lee toda la línea
+
+        System.out.println("Dirección: " + direccion);
+        scanner.close();
+    }
+}
+```
+
+
+### 20.4 El "problema del buffer": mezclar `nextInt` y `nextLine`
+
+El mayor inconveniente de `Scanner`, y uno de los motivos de su sustitución, era la gestión de su memoria temporal (el *buffer*). Cuando un usuario teclea `25` y pulsa *Enter*, en el buffer quedan los caracteres `25` seguidos del salto de línea `\n`. Métodos como `nextInt()` leen el número, pero **dejan el salto de línea abandonado en el buffer**:
+
+```java
+import java.util.Scanner;
+
+public class ProblemaScanner {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+
+        System.out.print("Introduce un número: ");
+        int numero = input.nextInt(); // Lee el número, pero deja "\n" en el buffer
+
+        System.out.print("Texto 1: ");
+        String texto1 = input.nextLine(); // Lee el "\n" pendiente ⇒ cadena vacía
+
+        System.out.print("Texto 2: ");
+        String texto2 = input.nextLine(); // Ahora sí lee el texto correctamente
+
+        System.out.println("Número: " + numero);
+        System.out.println("Texto 1: " + texto1); // Vacío
+        System.out.println("Texto 2: " + texto2);
+
+        input.close();
+    }
+}
+```
+
+> [!TIP]
+> **Solución tradicional al problema anterior:** añadir un `input.nextLine()` extra justo después de `nextInt()`/`nextDouble()`, únicamente para consumir el salto de línea pendiente antes de leer el siguiente texto.
+>
+> ```java > int numero = input.nextInt(); > input.nextLine(); // Consume el salto de línea pendiente > String texto1 = input.nextLine(); // Ahora funciona correctamente > ```
+
+> [!IMPORTANT]
+> Este problema es **exclusivo de `Scanner`** y desaparece por diseño al trabajar con `IO.readln`, ya que cada llamada consume siempre una línea completa, sin dejar residuos en el buffer. Es la razón pedagógica principal por la que este curso adopta `readln` como estándar.
+
+### 20.5 Práctica 12 (legacy): Problema con Scanner
+
+*Crea y analiza el programa problemático con `Scanner`. Encuentra y explica la solución.*
+
+<details>
+<summary>💡 Solución Práctica 12 (legacy)</summary>
+
+```java
+import java.util.Scanner;
+
+public class ScannerCorregido {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+
+        System.out.print("Introduce un número: ");
+        int numero = input.nextInt();
+
+        input.nextLine(); // SOLUCIÓN: consumir el salto de línea pendiente
+
+        System.out.print("Texto 1: ");
+        String texto1 = input.nextLine(); // Ahora funciona correctamente
+
+        System.out.print("Texto 2: ");
+        String texto2 = input.nextLine();
+
+        System.out.println("--- DATOS INTRODUCIDOS ---");
+        System.out.println("Número: " + numero);
+        System.out.println("Texto 1: " + texto1);
+        System.out.println("Texto 2: " + texto2);
+
+        input.close();
+    }
+}
+```
+
+**Explicación del problema:**
+- `nextInt()` lee el número pero deja el salto de línea en el buffer.
+- `nextLine()` inmediatamente después "se come" ese `\n` pendiente, devolviendo una cadena vacía.
+- **Solución:** añadir un `input.nextLine()` extra después de `nextInt()` para consumir el salto de línea pendiente.
+
 </details>
+
 ---
 
 <p align="center">📚 <em>Fin del apartado UT1.3 - Variables y entrada/salida de datos</em></p>
 
+---
+<small>© 2026 José Ramón Mas Davó. Todo el material docente original se distribuye bajo licencia [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/). Para más detalles, consulta el archivo [`LICENSE`](../LICENSE) del repositorio.</small>
