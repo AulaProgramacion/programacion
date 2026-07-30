@@ -1,4 +1,4 @@
-# 📚 Programación - Curso 2025/2026
+# 📚 Programación
 
 ![Java Programming](https://img.shields.io/badge/Java-Programming-orange?style=for-the-badge&logo=java)
 ![Educational](https://img.shields.io/badge/Type-Educational-blue?style=for-the-badge)
@@ -241,4 +241,14 @@ Para comenzar tu aprendizaje:
 Para consultas académicas, sugerencias o cualquier duda relacionada con el material:
 
 **📩 Email**: [jr.masdavo@edu.gva.es](mailto:jr.masdavo@edu.gva.es)
+
+## Licencia
+
+[![Licencia CC BY-NC-SA 4.0](https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png)](http://creativecommons.org/licenses/by-nc-sa/4.0/)
+
+© 2026 José Ramón Mas Davó
+
+Salvo que se indique lo contrario (como en imágenes o fragmentos de terceros), todo el material original de este repositorio se distribuye bajo una licencia **[Creative Commons Atribución-NoComercial-CompartirIgual 4.0 Internacional](https://creativecommons.org/licenses/by-nc-sa/4.0/)** (CC BY-NC-SA 4.0).
+
+Puedes consultar las condiciones completas en el archivo [`LICENSE`](./LICENSE) de este repositorio.
 
