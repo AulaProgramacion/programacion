@@ -250,21 +250,17 @@ print("La suma es:", resultado)
 El siguiente programa en Java realiza la misma tarea:
 
 ```java
-import java.util.Scanner;
-
 public class Suma {
     public static void main(String[] args) {
-        Scanner lector = new Scanner(System.in);
         int enter1, enter2, resultado;
 
-        System.out.print("Introduce el primer valor: ");
-        enter1 = lector.nextInt();
-        System.out.print("Introduce el segundo valor: ");
-        enter2 = lector.nextInt();
+        String texto1 = IO.readln("Introduce el primer valor: ");
+        enter1 = Integer.parseInt(texto1);
+        String texto2 = IO.readln("Introduce el segundo valor: ");
+        enter2 = Integer.parseInt(texto2);
 
         resultado = enter1 + enter2;
-        System.out.println("La suma es: " + resultado);
-        lector.close();
+        IO.println("La suma es: " + resultado);
     }
 }
 ```
@@ -276,7 +272,7 @@ public class Suma {
 Un **error de sintaxis** impide que el compilador genere el ejecutable. Por ejemplo, si faltan letras en un identificador estándar:
 
 ```java
-System.ou.println("Hola"); // ⛔ faltan letras en "out"
+IO.pritln("Hola"); // ⛔ falta una letra en "println"
 ```
 
 > [!WARNING]
@@ -325,7 +321,7 @@ El siguiente programa de Java imprime por pantalla “Hola, món!”:
 // HolaMon.java
 public class HolaMon {
     public static void main(String[] args) {
-        System.out.println("Hola, món!");
+        IO.println("Hola, món!");
     }
 }
 ```
@@ -479,7 +475,7 @@ Copia y ejecuta **HolaMon.java** desde consola para mostrar «Hola Món!»
 ```java
 public class HolaMon {
     public static void main(String[] args) {
-        System.out.println("Hola Món!");
+        IO.println("Hola Món!");
     }
 }
 ```
@@ -496,7 +492,7 @@ Modifica el programa para que muestre «Adeu Món!»
 ```java
 public class AdeuMon {
     public static void main(String[] args) {
-        System.out.println("Adeu Món!");
+        IO.println("Adeu Món!");
     }
 }
 ```
@@ -506,3 +502,6 @@ public class AdeuMon {
 ---
 
 <p align="center">📚 <em>Fin del apartado UT1.1 - Estructura básica de un programa informático</em></p>
+
+---
+<small>© 2026 José Ramón Mas Davó. Todo el material docente original se distribuye bajo licencia [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/). Para más detalles, consulta el archivo [`LICENSE`](../LICENSE) del repositorio.</small>
