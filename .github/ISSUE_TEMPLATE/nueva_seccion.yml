@@ -1,0 +1,38 @@
+name: 🆕 Añadir sección
+description: Proponer un apartado que falta por completo
+title: "[NUEVA SECCIÓN] Tema propuesto"
+labels: ["nuevo-contenido", "estado-nuevo"]
+body:
+  - type: input
+    id: titulo
+    attributes:
+      label: Título propuesto de la sección
+      placeholder: Ej. “Uso de enhaced for vs for tradicional”
+    validations:
+      required: true
+  - type: textarea
+    id: laguna
+    attributes:
+      label: Descripción de la laguna
+      placeholder: Qué falta y por qué es relevante
+    validations:
+      required: true
+  - type: textarea
+    id: contenido
+    attributes:
+      label: Contenido sugerido
+      placeholder: Índice tentativo, conceptos clave, ejemplos
+    validations:
+      required: true
+  - type: dropdown
+    id: alcance
+    attributes:
+      label: Alcance del cambio
+      options:
+        - Tema nuevo
+        - Apartado nuevo del tema
+        - Epígrafe o subapartado dentro de un apartado
+        - Nota breve
+      default: 1
+    validations:
+      required: false

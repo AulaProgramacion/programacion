@@ -1,0 +1,33 @@
+name: ➕ Ampliar contenido
+description: Un apartado se queda corto y necesita desarrollo
+title: "[AMPLIAR] Nombre del apartado"
+labels: ["ampliar", "estado-nuevo"]
+body:
+  - type: input
+    id: ubicacion
+    attributes:
+      label: Ubicación
+    validations:
+      required: true
+  - type: textarea
+    id: que_falta
+    attributes:
+      label: Qué falta
+      description: Ideas de subapartados, casos prácticos, referencias, etc.
+      placeholder: Lista breve de lo que debería añadirse
+    validations:
+      required: true
+  - type: textarea
+    id: propuesta
+    attributes:
+      label: Propuesta concreta de ampliación
+      placeholder:
+    validations:
+      required: false
+  - type: input
+    id: referencias
+    attributes:
+      label: Referencias sugeridas
+      placeholder: DOI, libro, artículo o enlace
+    validations:
+      required: false

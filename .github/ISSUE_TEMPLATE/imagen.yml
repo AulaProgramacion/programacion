@@ -1,0 +1,28 @@
+name: 🖼️ Solicitar imagen/diagrama
+description: Pide material gráfico para reforzar una sección
+title: "[IMAGEN] Tema relacionado"
+labels: [grafico, estado-nuevo]
+body:
+  - type: input
+    id: ubicacion
+    attributes:
+      label: Sección concreta
+      placeholder: Ej. Tema 3 → Apartado 3.3 línea 120
+    validations:
+      required: true
+  - type: dropdown
+    id: tipo
+    attributes:
+      label: Tipo de recurso
+      options:
+        - Diagrama de flujo
+        - Ilustración conceptual
+        - Captura de pantalla
+        - Otro
+    validations:
+      required: true
+  - type: textarea
+    id: detalle
+    attributes:
+      label: Descripción detallada
+      description: Explica qué debería comunicar la imagen

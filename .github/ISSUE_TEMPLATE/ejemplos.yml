@@ -1,0 +1,37 @@
+name: 🧩 Más ejemplos
+description: Solicitar ejemplos adicionales o de otro tipo
+title: "[EJEMPLOS] Sección Z"
+labels: ["ejemplos", "estado-nuevo"]
+body:
+  - type: input
+    id: seccion
+    attributes:
+      label: Sección concreta
+      placeholder: Ej. Tema 6 → Apartado 6.2 sobre el concepto "..."
+    validations:
+      required: true
+  - type: input
+    id: otro_detalle
+    attributes:
+      label: Especifica el tipo de ejemplo
+      placeholder: Describe el tipo de ejemplo que necesitas
+    validations:
+      required: false
+  - type: textarea
+    id: propuesta
+    attributes:
+      label: Propuesta de nuevos ejemplos (si los tienes)
+      placeholder: Bosquejos, datos o enunciados sugeridos
+    validations:
+      required: false
+  - type: dropdown
+    id: cantidad
+    attributes:
+      label: Cantidad deseada
+      options:
+        - 1
+        - 2–3
+        - 4 o más
+      default: 1
+    validations:
+      required: false

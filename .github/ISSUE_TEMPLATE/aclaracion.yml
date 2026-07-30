@@ -1,0 +1,33 @@
+name: ❓ Aclaración necesaria
+description: Algo no está completamente claro o resulta ambiguo
+title: "[ACLARAR] Tema o concepto"
+labels: ["aclarar", "estado-nuevo"]
+body:
+  - type: input
+    id: seccion
+    attributes:
+      label: Sección / concepto a aclarar
+      placeholder: Ej. Tema 3 → subapartado 3.2 el concepto de "..."
+    validations:
+      required: true
+  - type: textarea
+    id: confusion
+    attributes:
+      label: Qué resulta confuso
+      placeholder: Explica exactamente qué parte no se entiende y por qué
+    validations:
+      required: true
+  - type: input
+    id: referencia
+    attributes:
+      label: Enlace o página relevante (opcional)
+      placeholder: Enlace interno o externo de referencia
+    validations:
+      required: false
+  - type: textarea
+    id: propuesta
+    attributes:
+      label: Propuesta para aclarar o resolver
+      placeholder: Redacción propuesta, ejemplo o analogía sugerida
+    validations:
+      required: false

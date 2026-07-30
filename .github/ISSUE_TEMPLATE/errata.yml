@@ -1,0 +1,39 @@
+name: ❌ Corrección o errata
+description: Señala un error factual, tipográfico o de formato
+title: "[ERRATA] Describe brevemente el error"
+labels: ["errata", "estado-nuevo"]
+body:
+  - type: input
+    id: ubicacion
+    attributes:
+      label: Ubicación exacta
+      description: Enlaza a la línea o sección → click en numeración + Copy permalink
+    validations:
+      required: true
+  - type: dropdown
+    id: tipo_errata
+    attributes:
+      label: Tipo de errata
+      description: Clasifica el tipo de error
+      options:
+        - Factual
+        - Tipográfica
+        - Formato
+    validations:
+      required: true
+  - type: textarea
+    id: descripcion
+    attributes:
+      label: Descripción del problema
+      description: Explica por qué es incorrecto o confuso
+      placeholder: Qué está mal y en qué contexto se detectó
+    validations:
+      required: true
+  - type: textarea
+    id: propuesta
+    attributes:
+      label: Propuesta de corrección o resolución
+      description: Texto sugerido o indica si prefieres que el profesor decida
+      placeholder: Propuesta concreta o alternativas
+    validations:
+      required: false

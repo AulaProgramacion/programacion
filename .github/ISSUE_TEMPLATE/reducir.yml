@@ -1,0 +1,45 @@
+name: ➖ Reducir o eliminar contenido
+description: Proponer la reducción o eliminación de contenido duplicado o innecesario
+title: "[REDUCIR] Apartado o explicación"
+labels: ["reducir", "estado-nuevo"]
+body:
+  - type: input
+    id: ubicacion
+    attributes:
+      label: Ubicación
+      placeholder: Enlace permanente a la sección o líneas afectadas
+    validations:
+      required: true
+  - type: dropdown
+    id: accion
+    attributes:
+      label: Tipo de acción
+      options:
+        - Reducir
+        - Eliminar
+        - Reubicar
+      default: 0
+    validations:
+      required: true
+  - type: textarea
+    id: justificacion
+    attributes:
+      label: Justificación para reducir o eliminar
+      placeholder: Explica por qué es redundante, confuso o innecesario
+    validations:
+      required: true
+  - type: textarea
+    id: propuesta
+    attributes:
+      label: Propuesta concreta (opcional)
+      placeholder: Qué texto quitar, cuánto acortar o dónde reubicar
+    validations:
+      required: false
+  - type: checkboxes
+    id: impacto
+    attributes:
+      label: Impacto esperado
+      options:
+        - label: Mejora la claridad
+        - label: Elimina redundancia
+        - label: Reduce la carga cognitiva

@@ -1,0 +1,37 @@
+name: 📑 Desglosar lista en subapartados
+description: Detallar cada elemento de una lista escueta
+title: "[SUBAPARTADOS] Lista X del tema Y"
+labels: ["desglosar", "estado-nuevo"]
+body:
+  - type: input
+    id: ubicacion
+    attributes:
+      label: Ubicación
+      placeholder: Ej. Tema 5 → lista del epígrafe 5.3 sobre "..."
+    validations:
+      required: true
+  - type: textarea
+    id: lista_original
+    attributes:
+      label: Lista original
+      placeholder: Copia la lista actual o resume sus puntos
+    validations:
+      required: true
+  - type: textarea
+    id: sugerencia
+    attributes:
+      label: Sugerencia de estructura y detalle
+      placeholder: Propuesta de subapartados y nivel de detalle deseado
+    validations:
+      required: true
+  - type: dropdown
+    id: detalle
+    attributes:
+      label: Nivel de detalle deseado
+      options:
+        - Breve
+        - Medio
+        - Exhaustivo
+      default: 1
+    validations:
+      required: false
