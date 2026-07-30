@@ -1712,6 +1712,8 @@ System.out.printf("%d segundos = %d h, %d min, %d seg%n", t, horas, minutos, seg
 
 </details>
 
+</details>
+
 ## 20. Anexo. Scanner
 
 > [!WARNING]
