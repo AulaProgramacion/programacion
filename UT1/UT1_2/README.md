@@ -93,9 +93,9 @@ Todos los lenguajes de programación ofrecen cuatro grandes familias de tipos si
 Representa números **sin decimales**. *Ejemplos: edad, dia del mes, año, cantidad de hijos...*
 
 ```java
-System.out.println(3);
-System.out.println(-345);
-System.out.println(138764);
+IO.println(3);
+IO.println(-345);
+IO.println(138764);
 ```
 
 > [!NOTE]
@@ -111,7 +111,7 @@ System.out.println(138764);
 | `long`  | 64 bits| ≈ ±9 × 10¹⁸  *(añade `L` al literal)* |
 
 ```java
-System.out.println(7800000000L); // literal long
+IO.println(7800000000L); // literal long
 ```
 
 ---
@@ -121,14 +121,14 @@ System.out.println(7800000000L); // literal long
 Representa números **con decimales**. *Ejemplos: precio en euros, record mundial de 100 metros lisos en segundos, distancia entre ciudades de la comarca en km...*
 
 ```java
-System.out.println(3.1415926535);
-System.out.println(-0.75);
-System.out.println(.05);
-System.out.println(4.);
-System.out.println(4.0);
-System.out.println(4f);
-System.out.println(4.f);
-System.out.println(4d);
+IO.println(3.1415926535);
+IO.println(-0.75);
+IO.println(.05);
+IO.println(4.);
+IO.println(4.0);
+IO.println(4f);
+IO.println(4.f);
+IO.println(4d);
 ```
 
 Subtipos más comunes:
@@ -153,8 +153,8 @@ Representa un valor de tipo lógico para establecer la veracidad o falsedad de u
 Solo admite los literales `true` y `false`. *Ejemplos: interruptur(on/off), casado(sí/no), derecho a voto (sí/no), contraseña correcta(sí/no)...*
 
 ```java
-System.out.println(true);
-System.out.println(false);
+IO.println(true);
+IO.println(false);
 ```
 
 ---
@@ -164,11 +164,11 @@ System.out.println(false);
 Representa una unidad fundamental de texto utilizada en cualquier alfabeto, un número o signo de puntuación. Almacena un carácter Unicode de 16 bits (rangos `'\u0000'`=0 a `'\uffff'`=65535).
 
 ```java
-System.out.println('A');
-System.out.println('Σ');
-System.out.println('3');
-System.out.println('\u2764'); // ❤
-System.out.println('🙂‍↕️');
+IO.println('A');
+IO.println('Σ');
+IO.println('3');
+IO.println('\u2764'); // ❤
+IO.println('🙂‍↕️');
 ```
 
 Internamente `char` es un entero sin signo, por lo que al compararlo con números se convierte a `int`. Por ejemplo, `'4'` tiene valor numérico 52, por lo que `52 == '4'` es **true**, mientras que `5 == '4'` es false (5 ≠ 52). Estas comparaciones son válidas porque Java promueve el `char` a `int`.
@@ -216,10 +216,10 @@ Internamente `char` es un entero sin signo, por lo que al compararlo con número
 | `-`      | Cambio de signo    | `-(17 % 4)`| `-1` |
 
   ```java
-  System.out.println(4 + 3);   // 7
-  System.out.println(17 / 4);  // 4  (división entera, trunca decimales)
-  System.out.println(17 % 4);  // 1  (resto de la división)
-  System.out.println(-8);      // -8 (signo negativo)
+  IO.println(4 + 3);   // 7
+  IO.println(17 / 4);  // 4  (división entera, trunca decimales)
+  IO.println(17 % 4);  // 1  (resto de la división)
+  IO.println(-8);      // -8 (signo negativo)
   ```
 
 > [!CAUTION]
@@ -253,9 +253,9 @@ Generan un literal booleano:
 | `<=` | Menor o igual| `3 <= 5` | `true` |
 
 ```java
-System.out.println(5 == 5);   // true
-System.out.println(5 != 3);   // true
-System.out.println(3 > 10);   // false
+IO.println(5 == 5);   // true
+IO.println(5 != 3);   // true
+IO.println(3 > 10);   // false
 ```
 
 | A    | B    | A == B | A > B | A < B | A >= B | A <= B |
@@ -275,9 +275,9 @@ System.out.println(3 > 10);   // false
 Iguales que en enteros, salvo `%` y operadores a nivel de bit.
 
 ```java
-  System.out.println(5.5 + 2.0); // 7.5
-  System.out.println(5.5 * 2.0); // 11.0
-  System.out.println(5.5 / 2.0); // 2.75
+  IO.println(5.5 + 2.0); // 7.5
+  IO.println(5.5 * 2.0); // 11.0
+  IO.println(5.5 / 2.0); // 2.75
 ```
 
 
@@ -288,9 +288,9 @@ Iguales que en enteros, salvo `%` y operadores a nivel de bit.
 se pueden comparar (`==`, `!=`, `<`, etc.) basándose en Unicode. También, al sumar un `char` con un entero, se convierte a código numérico. Ejemplo:
 
   ```java
-  System.out.println('A' != 'a'); // true (65 ≠ 97)
-  System.out.println('b' < 'x');  // true (98 < 120)
-  System.out.println('+' + 1);    // 44  (código de '+' es 43 + 1)
+  IO.println('A' != 'a'); // true (65 ≠ 97)
+  IO.println('b' < 'x');  // true (98 < 120)
+  IO.println('+' + 1);    // 44  (código de '+' es 43 + 1)
   ```
 
 ---
@@ -318,10 +318,10 @@ En Java tenemos:
 | true  | true  | true   | true     | false  |
 
 ```java
-System.out.println(!true);
-System.out.println(true && false);
-System.out.println(true || false);
-System.out.println(!(false));
+IO.println(!true);
+IO.println(true && false);
+IO.println(true || false);
+IO.println(!(false));
 ```
 
 **Relacionales o de comparación**
@@ -342,34 +342,34 @@ System.out.println(!(false));
 ```java
 public class Booleans {
     public static void main(String[] args) {
-        System.out.println("Literales: ");
-        System.out.println(true);
-        System.out.println(false);
+        IO.println("Literales: ");
+        IO.println(true);
+        IO.println(false);
 
-        System.out.println("Operaciones lógicas o booleanas: ");
-        System.out.println(true && false);
-        System.out.println(true || false);
-        System.out.println(!true);
+        IO.println("Operaciones lógicas o booleanas: ");
+        IO.println(true && false);
+        IO.println(true || false);
+        IO.println(!true);
 
-        System.out.println("Operaciones relacionales o de comparación: ");
-        System.out.println(true == false);
-        System.out.println(true != false);
+        IO.println("Operaciones relacionales o de comparación: ");
+        IO.println(true == false);
+        IO.println(true != false);
 
-        System.out.println("Operaciones con booleanos y enteros: ");
-        System.out.println((5 < 10) && (20 > 15)); 
-        System.out.println((5 < 1) && (20 > 15)); 
-        System.out.println((100 >= 50) || (2 * 3 == 6)); 
-        System.out.println((100 >= 50) || (2 * 9 == 6)); 
-        System.out.println(!(7 > 9) && (4 * 5 <= 20));
-        System.out.println((12 % 3 == 2) || (15 / 4 >= 4)); 
-        System.out.println((2 + 2 == 4) && !(10 > 20));
+        IO.println("Operaciones con booleanos y enteros: ");
+        IO.println((5 < 10) && (20 > 15)); 
+        IO.println((5 < 1) && (20 > 15)); 
+        IO.println((100 >= 50) || (2 * 3 == 6)); 
+        IO.println((100 >= 50) || (2 * 9 == 6)); 
+        IO.println(!(7 > 9) && (4 * 5 <= 20));
+        IO.println((12 % 3 == 2) || (15 / 4 >= 4)); 
+        IO.println((2 + 2 == 4) && !(10 > 20));
 
-        System.out.println("Operaciones combinadas: ");
-        System.out.println(true && false || true);
-        System.out.println(false || true && true);
-        System.out.println(!true || false && true);
-        System.out.println((true || false) && !false);
-        System.out.println(!(true && false) || true && false);
+        IO.println("Operaciones combinadas: ");
+        IO.println(true && false || true);
+        IO.println(false || true && true);
+        IO.println(!true || false && true);
+        IO.println((true || false) && !false);
+        IO.println(!(true && false) || true && false);
 
     }
 }
@@ -401,8 +401,8 @@ public class Booleans {
 ```
 
 ```java
-System.out.println( (3 + 4) * -2 );
-System.out.println( (3 + 4 == 7) && !(12.3 > 2.11) );
+IO.println( (3 + 4) * -2 );
+IO.println( (3 + 4 == 7) && !(12.3 > 2.11) );
 ```
 
 
@@ -504,16 +504,16 @@ false
 
 ```java
 // ¡Desbordamiento! 3000000000 no cabe en un literal int
-// System.out.println(3000000000);  // Error de compilación
+// IO.println(3000000000);  // Error de compilación
 
-System.out.println(3000000000L);   // Correcto como literal long
+IO.println(3000000000L);   // Correcto como literal long
 ```
 
 > [!CAUTION]
 > Elegir el tipo de literal adecuado evita errores de desbordamiento.
 
 ```java
-System.out.println(0.1 + 0.2);       // 0.30000000000000004
+IO.println(0.1 + 0.2);       // 0.30000000000000004
 ```
 ---
 
@@ -521,7 +521,7 @@ System.out.println(0.1 + 0.2);       // 0.30000000000000004
 
 | # | Enunciado |
 |---|------------|
-| 3 | **Operaciones relacionales**: replica la tabla comparativa de la diapositiva usando sólo literales y `System.out.println()`. |
+| 3 | **Operaciones relacionales**: replica la tabla comparativa de la diapositiva usando sólo literales y `IO.println()`. |
 | 4 | **Reales**: imprime ejemplos con *todos* los operadores válidos sobre literales reales. |
 | 5 | **Caracteres**: demuestra cada comparación permitida y prueba `+` para observar el resultado. |
 | 6 | **Expresión mixta**: muestra por consola una expresión que combine al menos 10 literales de los cuatro tipos vistos. |
@@ -531,28 +531,28 @@ System.out.println(0.1 + 0.2);       // 0.30000000000000004
 
 ```java
 // Práctica 3 (fragmento)
-System.out.println(4 == 4);   // true
-System.out.println(4 > 3);    // true
-System.out.println(4 < 3);    // false
+IO.println(4 == 4);   // true
+IO.println(4 > 3);    // true
+IO.println(4 < 3);    // false
 ```
 
 ```java
 // Práctica 4 (fragmento)
-System.out.println(5.5 + 2.2);
-System.out.println(5.5 - 2.2);
-System.out.println(5.5 * 2.2);
-System.out.println(5.5 / 2.2);
+IO.println(5.5 + 2.2);
+IO.println(5.5 - 2.2);
+IO.println(5.5 * 2.2);
+IO.println(5.5 / 2.2);
 ```
 
 ```java
 // Práctica 5 (fragmento)
-System.out.println('A' < 'B');
-System.out.println('+' + 1); // concatena y promociona a int → 44
+IO.println('A' < 'B');
+IO.println('+' + 1); // concatena y promociona a int → 44
 ```
 
 ```java
 // Práctica 6 (fragmento)
-System.out.println(((3 + 5) * 2) > 10 && ('Z' != 'z') || false);
+IO.println(((3 + 5) * 2) > 10 && ('Z' != 'z') || false);
 ```
 
 </details>
