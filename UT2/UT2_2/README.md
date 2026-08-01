@@ -1,4 +1,4 @@
-# UT2.3 Estructuras de Repetición
+# UT2.2 Programación estructurada: Entrada por teclado y control de datos
 
 ## 📋 Índice de contenidos
 
