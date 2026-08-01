@@ -36,7 +36,6 @@ Este material está diseñado para fomentar tu ***aprendizaje autónomo***, dond
 - [UT2.2 Programación estructurada: Entrada por teclado y control de datos](./UT2/UT2_2/)
 - [UT2.3 Estructuras de Repetición](./UT2/UT2_3/)
 - [UT2.4 Pruebas y Depuración](./UT2/UT2_4/)
-  - [Repaso: Scanner](./UT2/UT2_Repaso_Scanner/)
 
 </details>
 
