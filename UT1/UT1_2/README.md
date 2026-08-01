@@ -564,3 +564,7 @@ IO.println(((3 + 5) * 2) > 10 && ('Z' != 'z') || false);
 
 <p align="center">📚 <em>Fin del apartado UT1.2 - Tipos de datos simples</em></p>
 
+---
+<small>© 2026 José Ramón Mas Davó. Todo el material docente original se distribuye bajo licencia [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/). Para más detalles, consulta el archivo [`LICENSE`](../LICENSE) del repositorio.</small>
+
+

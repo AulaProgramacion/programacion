@@ -323,13 +323,11 @@ if (expresion_booleana) {
 public class EjemploSeleccionSimple {
     public static void main(String[] args) {
         int edad = 18;
-        
         if (edad >= 18) {
-            System.out.println("Eres mayor de edad");
-            System.out.println("Puedes votar en las elecciones");
+            IO.println("Eres mayor de edad");
+            IO.println("Puedes votar en las elecciones");
         }
-        
-        System.out.println("Fin del programa");
+        IO.println("Fin del programa");
     }
 }
 ```
@@ -377,16 +375,14 @@ if (expresion_booleana) {
 public class EjemploSeleccionDoble {
     public static void main(String[] args) {
         int numero = -5;
-        
         if (numero >= 0) {
-            System.out.println("El número es positivo o cero");
-            System.out.println("Valor absoluto: " + numero);
+            IO.println("El número es positivo o cero");
+            IO.println("Valor absoluto: " + numero);
         } else {
-            System.out.println("El número es negativo");
-            System.out.println("Valor absoluto: " + (-numero));
+            IO.println("El número es negativo");
+            IO.println("Valor absoluto: " + (-numero));
         }
-        
-        System.out.println("Análisis completado");
+        IO.println("Análisis completado");
     }
 }
 ```
@@ -446,19 +442,18 @@ if (expresion_booleana_1) {
 public class CalificacionNotas {
     public static void main(String[] args) {
         double nota = 7.5;
-        
         if (nota >= 9.0) {
-            System.out.println("Sobresaliente");
-            System.out.println("¡Excelente trabajo!");
+            IO.println("Sobresaliente");
+            IO.println("¡Excelente trabajo!");
         } else if (nota >= 7.0) {
-            System.out.println("Notable");
-            System.out.println("Muy buen trabajo");
+            IO.println("Notable");
+            IO.println("Muy buen trabajo");
         } else if (nota >= 5.0) {
-            System.out.println("Aprobado");
-            System.out.println("Has superado la materia");
+            IO.println("Aprobado");
+            IO.println("Has superado la materia");
         } else {
-            System.out.println("Suspenso");
-            System.out.println("Necesitas estudiar más");
+            IO.println("Suspenso");
+            IO.println("Necesitas estudiar más");
         }
     }
 }
@@ -552,7 +547,7 @@ public class DiasSemana {
                 nombreDia = "Día no válido";
         }
         
-        System.out.println("El día " + dia + " corresponde a: " + nombreDia);
+        IO.println("El día " + dia + " corresponde a: " + nombreDia);
     }
 }
 ```
@@ -563,22 +558,21 @@ public class DiasSemana {
 public class CalificacionSwitch {
     public static void main(String[] args) {
         int nota = 5;
-        
         switch (nota) {
             case 0: case 1: case 2:
-                System.out.println("Muy deficiente");
+                IO.println("Muy deficiente");
                 break;
             case 3: case 4:
-                System.out.println("Insuficiente");
+                IO.println("Insuficiente");
                 break;
             case 5: case 6: case 7:
-                System.out.println("Bien");
+                IO.println("Bien");
                 break;
             case 8: case 9: case 10:
-                System.out.println("Muy bien");
+                IO.println("Muy bien");
                 break;
             default:
-                System.out.println("Nota incorrecta");
+                IO.println("Nota incorrecta");
         }
     }
 }
@@ -601,7 +595,7 @@ condicion ? valor_si_true : valor_si_false;
 
 ```java
 int a = 5, b = 10;
-System.out.println((a > b) ? "a es mayor" : "b es mayor");
+IO.println((a > b) ? "a es mayor" : "b es mayor");
 ```
 
 **Salida:**
@@ -616,9 +610,9 @@ Aquí no se asigna el resultado a ninguna variable. El operador ternario simplem
 
 ```java
 if (a > b) {
-    System.out.println("a es mayor");
+    IO.println("a es mayor");
 } else {
-    System.out.println("b es mayor");
+    IO.println("b es mayor");
 }
 ```
 
@@ -646,7 +640,7 @@ int max = (a > b) ? a : b;
 **Ejemplo 2: Usar dentro de un `println`:**
 
 ```java
-System.out.println((nota >= 5) ? "Aprobado" : "Suspenso");
+IO.println((nota >= 5) ? "Aprobado" : "Suspenso");
 ```
 
 **Ejemplo 3: Anidación de operadores ternarios:**
@@ -656,7 +650,7 @@ int nota = 7;
 String calificacion = (nota >= 9) ? "Excelente" :
                        (nota >= 7) ? "Notable" :
                        (nota >= 5) ? "Aprobado" : "Suspenso";
-System.out.println(calificacion);
+IO.println(calificacion);
 ```
 
 > [!WARNING]
@@ -685,7 +679,7 @@ System.out.println(calificacion);
 
 ```java
 int numero = 13;
-System.out.println((numero % 2 == 0) ? "Par" : "Impar");
+IO.println((numero % 2 == 0) ? "Par" : "Impar");
 ```
 
 > [!NOTE]
@@ -702,14 +696,14 @@ public class AmbitVariables {
     
     public static void main(String[] args) {
         int b = 2; // Variable local del método main
-        System.out.println(a + b); // ✅ Funciona correctamente
+        IO.println(a + b); // ✅ Funciona correctamente
         
         { // Nuevo bloque de instrucciones
             int c = 3; // Variable local del bloque
-            System.out.println(a + b + c); // ✅ Funciona correctamente
+            IO.println(a + b + c); // ✅ Funciona correctamente
         }
         
-        System.out.println(a + b + c); // ❌ ERROR: 'c' no existe aquí
+        IO.println(a + b + c); // ❌ ERROR: 'c' no existe aquí
     }
 }
 ```
@@ -756,24 +750,19 @@ FinAlgoritmo
 <summary>💻 Solución en Java</summary>
 
 ```java
-import java.util.Scanner;
-
 public class CalculoPrecio {
     public static void main(String[] args) {
-        Scanner teclado = new Scanner(System.in);
         final int MINIMO = 100;
         final int DESCUENTO = 10;
-        float precio;
-        
-        System.out.print("Introduce el precio: ");
-        precio = teclado.nextFloat();
-        
-        if(precio >= MINIMO) {
+
+        String textoPrecio = IO.readln("Introduce el precio: ");
+        float precio = Float.parseFloat(textoPrecio);
+
+        if (precio >= MINIMO) {
             precio -= precio * DESCUENTO / 100;
         }
-        
-        System.out.printf("El precio final es de %.2f euros\n", precio);
-        teclado.close();
+
+        System.out.printf("El precio final es de %.2f euros%n", precio);
     }
 }
 ```
@@ -814,24 +803,18 @@ Realiza el diseño en PSeInt e implementación posterior en Java del siguiente p
 <summary>💡 Solución en Java</summary>
 
 ```java
-import java.util.Scanner;
-
 public class AdivinaNumero {
     public static void main(String[] args) {
-        Scanner teclado = new Scanner(System.in);
         final int NUMERO_SECRETO = 241;
-        int numeroUsuario;
-        
-        System.out.print("Introduce un número: ");
-        numeroUsuario = teclado.nextInt();
-        
+
+        String textoNumero = IO.readln("Introduce un número: ");
+        int numeroUsuario = Integer.parseInt(textoNumero);
+
         if (numeroUsuario == NUMERO_SECRETO) {
-            System.out.println("¡Felicidades! Has acertado el número secreto.");
+            IO.println("¡Felicidades! Has acertado el número secreto.");
         } else {
-            System.out.println("Lo siento, no has acertado. El número secreto era " + NUMERO_SECRETO);
+            IO.println("Lo siento, no has acertado. El número secreto era " + NUMERO_SECRETO);
         }
-        
-        teclado.close();
     }
 }
 ```
@@ -855,29 +838,22 @@ Diseña e implementa el siguiente programa de calificación:
 <summary>💻 Solución en Java</summary>
 
 ```java
-import java.util.Scanner;
-
 public class CalificacionNotas {
     public static void main(String[] args) {
-        Scanner teclado = new Scanner(System.in);
-        double nota;
-        
-        System.out.print("Introduce una nota (0-10): ");
-        nota = teclado.nextDouble();
-        
+        String textoNota = IO.readln("Introduce una nota (0-10): ");
+        double nota = Double.parseDouble(textoNota);
+
         if (nota < 0 || nota > 10) {
-            System.out.println("Error: La nota debe estar entre 0 y 10");
+            IO.println("Error: La nota debe estar entre 0 y 10");
         } else if (nota >= 9.0) {
-            System.out.println("Excelente");
+            IO.println("Excelente");
         } else if (nota >= 6.5) {
-            System.out.println("Notable");
+            IO.println("Notable");
         } else if (nota >= 5.0) {
-            System.out.println("Aprobado");
+            IO.println("Aprobado");
         } else {
-            System.out.println("Suspenso");
+            IO.println("Suspenso");
         }
-        
-        teclado.close();
     }
 }
 ```
@@ -913,46 +889,36 @@ Diseña e implementa un sistema avanzado de descuentos con las siguientes especi
 <summary>💻 Solución en Java</summary>
 
 ```java
-import java.util.Scanner;
-
 public class SistemaDescuentos {
     public static void main(String[] args) {
-        Scanner teclado = new Scanner(System.in);
-        
-        // Constantes del sistema
         final double PRECIO_MINIMO_DESCUENTO = 100.0;
-        final double PORCENTAJE_DESCUENTO = 15.0; // 15%
-        final double DESCUENTO_MAXIMO = 50.0; // máximo 50€ de descuento
-        
-        double precio, descuento = 0, precioFinal;
-        
-        System.out.print("Introduce el precio inicial en euros: ");
-        precio = teclado.nextDouble();
-        
+        final double PORCENTAJE_DESCUENTO = 15.0;
+        final double DESCUENTO_MAXIMO = 50.0;
+
+        String textoPrecio = IO.readln("Introduce el precio inicial en euros: ");
+        double precio = Double.parseDouble(textoPrecio);
+        double descuento = 0, precioFinal;
+
         if (precio < 0) {
-            System.out.println("Error: El precio no puede ser negativo");
+            IO.println("Error: El precio no puede ser negativo");
         } else {
             if (precio >= PRECIO_MINIMO_DESCUENTO) {
-                // Calcular descuento
                 descuento = precio * PORCENTAJE_DESCUENTO / 100;
-                
-                // Verificar si supera el máximo
+
                 if (descuento > DESCUENTO_MAXIMO) {
                     descuento = DESCUENTO_MAXIMO;
-                    System.out.println("Descuento limitado al máximo permitido: " + DESCUENTO_MAXIMO + "€");
+                    IO.println("Descuento limitado al máximo permitido: " + DESCUENTO_MAXIMO + "€");
                 }
-                
+
                 precioFinal = precio - descuento;
-                System.out.printf("Precio original: %.2f€\n", precio);
-                System.out.printf("Descuento aplicado: %.2f€\n", descuento);
-                System.out.printf("Precio final: %.2f€\n", precioFinal);
+                System.out.printf("Precio original: %.2f€%n", precio);
+                System.out.printf("Descuento aplicado: %.2f€%n", descuento);
+                System.out.printf("Precio final: %.2f€%n", precioFinal);
             } else {
-                System.out.printf("No se aplica descuento. Precio mínimo requerido: %.2f€\n", PRECIO_MINIMO_DESCUENTO);
-                System.out.printf("Precio final: %.2f€\n", precio);
+                System.out.printf("No se aplica descuento. Precio mínimo requerido: %.2f€%n", PRECIO_MINIMO_DESCUENTO);
+                System.out.printf("Precio final: %.2f€%n", precio);
             }
         }
-        
-        teclado.close();
     }
 }
 ```
@@ -982,62 +948,47 @@ Diseña e implementa una calculadora con menú utilizando la estructura `switch`
 <summary>💻 Solución en Java</summary>
 
 ```java
-import java.util.Scanner;
-
 public class CalculadoraMenu {
     public static void main(String[] args) {
-        Scanner teclado = new Scanner(System.in);
-        int numero1, numero2, opcion;
+        String textoNum1 = IO.readln("Introduce el primer número entero: ");
+        int numero1 = Integer.parseInt(textoNum1);
+
+        String textoNum2 = IO.readln("Introduce el segundo número entero: ");
+        int numero2 = Integer.parseInt(textoNum2);
+
+        IO.println("\n=== CALCULADORA ===");
+        IO.println("1. Suma");
+        IO.println("2. Resta");
+        IO.println("3. Multiplicación");
+        IO.println("4. División");
+        String textoOpcion = IO.readln("Selecciona una opción (1-4): ");
+        int opcion = Integer.parseInt(textoOpcion);
+
         double resultado;
-        
-        // Pedir los dos números
-        System.out.print("Introduce el primer número entero: ");
-        numero1 = teclado.nextInt();
-        
-        System.out.print("Introduce el segundo número entero: ");
-        numero2 = teclado.nextInt();
-        
-        // Mostrar menú
-        System.out.println("\n=== CALCULADORA ===");
-        System.out.println("1. Suma");
-        System.out.println("2. Resta");
-        System.out.println("3. Multiplicación");
-        System.out.println("4. División");
-        System.out.print("Selecciona una opción (1-4): ");
-        
-        opcion = teclado.nextInt();
-        
-        // Procesar la opción seleccionada
         switch (opcion) {
             case 1:
                 resultado = numero1 + numero2;
-                System.out.printf("%d + %d = %.0f\n", numero1, numero2, resultado);
+                System.out.printf("%d + %d = %.0f%n", numero1, numero2, resultado);
                 break;
-                
             case 2:
                 resultado = numero1 - numero2;
-                System.out.printf("%d - %d = %.0f\n", numero1, numero2, resultado);
+                System.out.printf("%d - %d = %.0f%n", numero1, numero2, resultado);
                 break;
-                
             case 3:
                 resultado = numero1 * numero2;
-                System.out.printf("%d × %d = %.0f\n", numero1, numero2, resultado);
+                System.out.printf("%d x %d = %.0f%n", numero1, numero2, resultado);
                 break;
-                
             case 4:
                 if (numero2 != 0) {
                     resultado = (double) numero1 / numero2;
-                    System.out.printf("%d ÷ %d = %.2f\n", numero1, numero2, resultado);
+                    System.out.printf("%d / %d = %.2f%n", numero1, numero2, resultado);
                 } else {
-                    System.out.println("Error: No se puede dividir entre cero");
+                    IO.println("Error: No se puede dividir entre cero");
                 }
                 break;
-                
             default:
-                System.out.println("Error: Opción no válida. Selecciona una opción entre 1 y 4");
+                IO.println("Error: Opción no válida. Selecciona una opción entre 1 y 4");
         }
-        
-        teclado.close();
     }
 }
 ```
@@ -1045,3 +996,6 @@ public class CalculadoraMenu {
 </details>
 
 <p align="center"> <em>📚 Fin del apartado UT2.1 - Estructuras de selección</em></p>
+
+---
+<small>© 2026 José Ramón Mas Davó. Todo el material docente original se distribuye bajo licencia [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/). Para más detalles, consulta el archivo [`LICENSE`](../LICENSE) del repositorio.</small>
