@@ -74,7 +74,7 @@ Los **IDE** (Entornos de Desarrollo Integrados) disponen de potentes herramienta
 
 | Tipo de error | Descripción | Ejemplo |
 | :-- | :-- | :-- |
-| **Sintaxis** | Violación de reglas del lenguaje | `System.ou.println()` (falta 't') |
+| **Sintaxis** | Violación de reglas del lenguaje | `IO.pritln()` (falta 'n') |
 | **Lógico** | Error en la lógica del programa | Condición incorrecta en `if` |
 | **Ejecución** | Error durante la ejecución | División por cero |
 | **Semántico** | Código sintácticamente correcto pero incorrecto conceptualmente | Usar `=` en lugar de `==` |
@@ -157,7 +157,7 @@ public class EjemploError {
         int numero = 10;
         int divisor = 0;
         int resultado = numero / divisor; // ¡Error de ejecución!
-        System.out.println(resultado);
+        IO.println(resultado);
     }
 }
 ```
@@ -242,9 +242,9 @@ public class DepuracionEjemplo {
         int suma = 0;
         for (int i = 1; i <= 5; i++) {  // ← Breakpoint aquí
             suma += i;
-            System.out.println("i = " + i + ", suma = " + suma);  // ← Y aquí
+            IO.println("i = " + i + ", suma = " + suma);  // ← Y aquí
         }
-        System.out.println("Suma final: " + suma);
+        IO.println("Suma final: " + suma);
     }
 }
 ```
@@ -297,23 +297,6 @@ Durante la ejecución en modo depuración, NetBeans ofrece potentes herramientas
 - Se puede configurar para evaluar expresiones personalizadas
 - Mantiene las expresiones entre sesiones de depuración
 
-**Ejemplos de expresiones útiles:**
-
-```java
-// Variables simples
-numero
-contador
-
-// Propiedades de objetos
-persona.nombre
-lista.size()
-
-// Expresiones calculadas
-suma / contador
-array[indice]
-Math.max(a, b)
-```
-
 > [!TIP]
 > Utiliza la ventana "Watches" para monitorizar expresiones complejas como `array.length` o `object.getProperty()`.
 
@@ -335,7 +318,7 @@ public class EjemploInspeccion {
         }
         
         double promedio = (double) suma / numeros.length;  // ← Breakpoint
-        System.out.println("Promedio: " + promedio);
+        IO.println("Promedio: " + promedio);
     }
 }
 ```
@@ -343,6 +326,9 @@ public class EjemploInspeccion {
 ### 6.5 Ejecución paso a paso
 
 La **ejecución paso a paso** (*Step-by-Step Execution*) permite a los desarrolladores ejecutar el código una línea a la vez, facilitando la comprensión del flujo de ejecución y la identificación exacta de dónde se producen los errores.
+
+[!NOTE]
+Estos ejemplos evitan métodos propios (los veremos en UT4) y arrays (UT3). Por eso, Step Into/Step Out/Call Stack se ilustran aquí de forma limitada, apoyándonos en métodos ya existentes de la librería estándar (String.length(), Math.max()). Estas herramientas ganarán todo su sentido cuando escribamos nuestros propios métodos.
 
 #### Tipos de ejecución paso a paso:
 
@@ -363,16 +349,15 @@ La **ejecución paso a paso** (*Step-by-Step Execution*) permite a los desarroll
 ```java
 public class StepIntoEjemplo {
     public static void main(String[] args) {
-        int a = 5, b = 3;
-        int resultado = calcularSuma(a, b);  // ← Step Into aquí entrará en calcularSuma()
-        System.out.println(resultado);
-    }
-    
-    public static int calcularSuma(int x, int y) {
-        return x + y;  // ← Veremos la ejecución de esta línea
+        String texto = "Hola";
+        int longitud = texto.length();  // Técnicamente "Step Into" entraría en el código fuente de la JDK
+        IO.println("Longitud: " + longitud);
     }
 }
 ```
+
+[!TIP]
+En la práctica, casi nunca se usa Step Into sobre métodos de la librería estándar (su código no suele ser útil de depurar); se reserva para nuestros propios métodos a partir de UT4.
 
 **🔄 Step Over (F8) <img src="assets/imatge11.jpg" alt="Imatge 11">**
 
@@ -393,7 +378,7 @@ public class StepOverEjemplo {
     public static void main(String[] args) {
         String texto = "Hola Mundo";
         int longitud = texto.length();  // ← Step Over ejecutará length() sin entrar
-        System.out.println(longitud);   // ← Continuará aquí directamente
+        IO.println(longitud);   // ← Continuará aquí directamente
     }
 }
 ```
@@ -456,28 +441,23 @@ public class StepOverExpressionEjemplo {
 ```java
 public class EjemploPasoAPaso {
     public static void main(String[] args) {
-        int[] numeros = {1, 2, 3, 4, 5};
-        int suma = calcularSuma(numeros);  // ← Breakpoint inicial
-        double promedio = calcularPromedio(suma, numeros.length);
-        System.out.println("Promedio: " + promedio);
-    }
-    
-    public static int calcularSuma(int[] array) {
-        int total = 0;
-        for (int num : array) {  // ← Step Into para ver cada iteración
-            total += num;
+        int contador = 0;   // ← Breakpoint inicial
+        int suma = 0;
+
+        while (contador < 5) {   // ← Step Over para avanzar iteración a iteración
+            suma += contador;
+            contador++;
         }
-        return total;  // ← Step Out para volver al main
-    }
-    
-    public static double calcularPromedio(int suma, int cantidad) {
-        return (double) suma / cantidad;  // ← Run to Cursor para llegar aquí rápido
+
+        double promedio = (double) suma / contador;  // ← Run to Cursor para llegar aquí rápido
+        IO.println("Promedio: " + promedio);
     }
 }
 ```
 
-> [!NOTE]
-> Estas herramientas permiten analizar el flujo de ejecución y localizar errores lógicos que no generan mensajes de error.
+[!NOTE]
+Cuando en UT3 (arrays) y UT4 (métodos) dispongamos de más herramientas del lenguaje, retomaremos este mismo ejemplo dividido en varios métodos para explotar todo el potencial de Step Into, Step Out y Call Stack.
+
 
 ### 6.6 Otras herramientas útiles
 
@@ -664,10 +644,12 @@ División por cero cuando el precio introducido es 0.
  * 
  * Código corregido:
  *   if (precio <= 0) {
- *       System.out.println("Error: El precio debe ser mayor que cero");
- *       return;
+ *       IO.println("Error: El precio debe ser mayor que cero");
  *   }
- *   double porcentajeDescuento = descuento / precio * 100;
+ *   else {
+ *       double porcentajeDescuento = descuento / precio * 100;
+ *   }
+
  * 
  * Justificación:
  * - Previene la división por cero
@@ -708,18 +690,17 @@ Seguir buenas prácticas en la depuración no solo mejora la eficiencia del proc
 /*
  * ANÁLISIS DEL CÓDIGO
  * ===================
- * 
+ *
  * Propósito: Calcular el promedio de notas de un estudiante
- * Entrada: Array de notas decimales (0.0 - 10.0)
- * Salida: Promedio calculado y calificación textual
- * 
+ * Entrada: Notas decimales introducidas por teclado, una por una (0.0 - 10.0)
+ * Salida: Promedio calculado
+ *
  * Flujo esperado:
- * 1. Recibir array de notas
- * 2. Validar que las notas estén en rango válido
- * 3. Calcular suma total
- * 4. Dividir por número de notas
- * 5. Determinar calificación textual
- * 6. Retornar resultado
+ * 1. Pedir cada nota por teclado
+ * 2. Validar que la nota esté en rango válido
+ * 3. Acumular la suma
+ * 4. Dividir por el número de notas
+ * 5. Mostrar el resultado
  */
 ```
 
@@ -743,26 +724,35 @@ Seguir buenas prácticas en la depuración no solo mejora la eficiencia del proc
 ```java
 public class VerificacionEjemplo {
     public static void main(String[] args) {
-        int[] notas = {8, 7, 9, 6, 8};
-        
-        // ❌ Suposición: "El array siempre tendrá elementos"
-        // ✅ Verificación: Comprobar que el array no esté vacío
-        if (notas.length == 0) {
-            System.out.println("Error: No hay notas para calcular");
-            return;
-        }
-        
-        // ❌ Suposición: "Todas las notas están en rango válido"
-        // ✅ Verificación: Validar cada nota
-        for (int nota : notas) {
-            if (nota < 0 || nota > 10) {
-                System.out.println("Error: Nota fuera de rango: " + nota);
-                return;
+        int cantidadNotas = 5;
+        int notasValidas = 0;
+        double sumaNotas = 0;
+        int contador = 0;
+
+        // ❌ Suposición: "todas las notas estarán siempre en rango válido"
+        // ✅ Verificación: comprobar cada nota antes de sumarla
+        while (contador < cantidadNotas) {
+            String textoNota = IO.readln("Introduce la nota " + (contador + 1) + ": ");
+
+            if (Teclado.esDecimal(textoNota)) {
+                double nota = Double.parseDouble(textoNota);
+                if (nota < 0 || nota > 10) {
+                    IO.println("Error: nota fuera de rango: " + nota);
+                } else {
+                    sumaNotas += nota;
+                    notasValidas++;
+                }
+            } else {
+                IO.println("Error: debes introducir un número decimal válido.");
             }
+            contador++;
         }
-        
-        double promedio = calcularPromedio(notas);
-        System.out.println("Promedio: " + promedio);
+
+        if (notasValidas > 0) {
+            IO.println("Promedio: " + (sumaNotas / notasValidas));
+        } else {
+            IO.println("No se ha podido calcular el promedio: no hay notas válidas.");
+        }
     }
 }
 ```
@@ -785,44 +775,49 @@ public class VerificacionEjemplo {
 **Ejemplo de simplificación:**
 
 ```java
-// ❌ Código complejo difícil de depurar
+// ❌ Código denso: todo mezclado en un único bucle, difícil de depurar
 public class ComplejoEjemplo {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        List<Double> notas = new ArrayList<>();
-        
-        while (true) {
-            System.out.print("Introduce nota (o -1 para terminar): ");
-            double nota = scanner.nextDouble();
-            if (nota == -1) break;
-            if (validarNota(nota)) {
-                notas.add(nota);
+        double totalIngresos = 0;
+        int totalVentas = 0;
+        int contador = 0;
+
+        while (contador < 5) {
+            String textoVenta = IO.readln("Introduce el importe de la venta " + (contador + 1) + ": ");
+            if (Teclado.esDecimal(textoVenta)) {
+                double venta = Double.parseDouble(textoVenta);
+                if (venta > 0) {
+                    totalIngresos += venta;
+                    totalVentas++;
+                    if (venta > 100) {
+                        totalIngresos = totalIngresos - (venta * 0.05); // descuento oculto mezclado aquí
+                    }
+                } else {
+                    IO.println("Venta no válida, se ignora.");
+                }
+            } else {
+                IO.println("Entrada no numérica, se ignora.");
             }
+            contador++;
         }
-        
-        EstadisticasCalculator calc = new EstadisticasCalculator();
-        ResultadoEstadisticas resultado = calc.calcular(notas);
-        generarReporte(resultado);
+
+        double mediaVentas = totalIngresos / totalVentas; // ⚠️ posible división por cero
+        IO.println("Ingresos totales: " + totalIngresos);
+        IO.println("Media por venta: " + mediaVentas);
     }
 }
+```
 
-// ✅ Versión simplificada para depuración
+```java
+// ✅ Versión simplificada para depuración: aislamos solo el cálculo problemático
 public class SimplificadoEjemplo {
     public static void main(String[] args) {
-        // Usar datos fijos para eliminar variables
-        double[] notas = {8.0, 7.5, 9.0};  // Datos conocidos
-        
-        // Probar solo la función problemática
-        double promedio = calcularPromedio(notas);
-        System.out.println("Promedio: " + promedio);
-    }
-    
-    public static double calcularPromedio(double[] notas) {
-        double suma = 0;
-        for (double nota : notas) {
-            suma += nota;
-        }
-        return suma / notas.length;  // ← Aquí puede estar el error
+        // Usamos valores fijos y conocidos para eliminar variables
+        double totalIngresos = 250.0;
+        int totalVentas = 0; // ← Provocamos el caso límite a propósito
+
+        double mediaVentas = totalIngresos / totalVentas; // ← Aquí está el error: división por cero
+        IO.println("Media por venta: " + mediaVentas);
     }
 }
 ```
@@ -846,52 +841,52 @@ public class SimplificadoEjemplo {
 
 ```java
 // Paso 1: Identificar el problema
-public static double calcularPromedio(double[] notas) {
-    double suma = 0;
-    for (double nota : notas) {
-        suma += nota;
-    }
-    return suma / notas.length;  // ¿Problema aquí?
+int contador = 0;
+double suma = 0;
+while (contador < 5) {
+    String texto = IO.readln("Introduce una nota: ");
+    double nota = Double.parseDouble(texto); // ¿Problema si el texto no es válido?
+    suma += nota;
+    contador++;
 }
+double promedio = suma / contador;
 
 // Paso 2: Añadir depuración básica
-public static double calcularPromedio(double[] notas) {
-    System.out.println("DEBUG: Calculando promedio de " + notas.length + " notas");
-    double suma = 0;
-    for (double nota : notas) {
+int contador = 0;
+double suma = 0;
+while (contador < 5) {
+    String texto = IO.readln("Introduce una nota: ");
+    IO.println("DEBUG: texto leído = " + texto);
+    double nota = Double.parseDouble(texto);
+    suma += nota;
+    IO.println("DEBUG: suma actual = " + suma);
+    contador++;
+}
+double promedio = suma / contador;
+IO.println("DEBUG: promedio final = " + promedio);
+
+// Paso 3: Añadir validación (con if, sin excepciones)
+int contador = 0;
+double suma = 0;
+int notasValidas = 0;
+while (contador < 5) {
+    String texto = IO.readln("Introduce una nota: ");
+    if (Teclado.esDecimal(texto)) {
+        double nota = Double.parseDouble(texto);
         suma += nota;
-        System.out.println("DEBUG: suma actual = " + suma);
+        notasValidas++;
+    } else {
+        IO.println("Entrada no válida, se ignora esta nota.");
     }
-    double resultado = suma / notas.length;
-    System.out.println("DEBUG: resultado = " + resultado);
-    return resultado;
+    contador++;
+}
+if (notasValidas > 0) {
+    IO.println("Promedio: " + (suma / notasValidas));
+} else {
+    IO.println("No se ha podido calcular el promedio.");
 }
 
-// Paso 3: Añadir validación
-public static double calcularPromedio(double[] notas) {
-    if (notas == null || notas.length == 0) {
-        throw new IllegalArgumentException("Array de notas no puede estar vacío");
-    }
-    
-    double suma = 0;
-    for (double nota : notas) {
-        suma += nota;
-    }
-    return suma / notas.length;
-}
-
-// Paso 4: Limpiar y finalizar
-public static double calcularPromedio(double[] notas) {
-    if (notas == null || notas.length == 0) {
-        throw new IllegalArgumentException("Array de notas no puede estar vacío");
-    }
-    
-    double suma = 0;
-    for (double nota : notas) {
-        suma += nota;
-    }
-    return suma / notas.length;
-}
+// Paso 4: versión final, ya limpia de mensajes de depuración (igual que el paso 3 sin los DEBUG)
 ```
 
 
@@ -947,107 +942,88 @@ public static double calcularPromedio(double[] notas) {
 
 ```java
 // ❌ Nombres poco descriptivos
-public static double calc(double[] nums) {
-    double s = 0;
-    for (double n : nums) {
-        s += n;
-    }
-    return s / nums.length;
+double s = 0;
+int c = 0;
+while (c < 5) {
+    s += Double.parseDouble(IO.readln("Nota: "));
+    c++;
 }
+double prom = s / c;
 
 // ✅ Nombres descriptivos
-public static double calcularPromedioNotas(double[] notas) {
-    double sumaTotal = 0;
-    for (double notaIndividual : notas) {
-        sumaTotal += notaIndividual;
-    }
-    return sumaTotal / notas.length;
+double sumaTotal = 0;
+int contadorNotas = 0;
+while (contadorNotas < 5) {
+    sumaTotal += Double.parseDouble(IO.readln("Nota: "));
+    contadorNotas++;
 }
+double promedioNotas = sumaTotal / contadorNotas;
 ```
 
 **📋 Estructuras claras:**
 
 ```java
-// ✅ Estructura clara y bien documentada
-public class CalculadoraNotas {
-    
-    /**
-     * Calcula el promedio de un array de notas
-     * @param notas Array de notas (rango 0.0 - 10.0)
-     * @return Promedio calculado
-     * @throws IllegalArgumentException si el array está vacío o es null
-     */
-    public static double calcularPromedio(double[] notas) {
-        validarEntrada(notas);
-        
-        double sumaTotal = calcularSumaTotal(notas);
-        return sumaTotal / notas.length;
-    }
-    
-    private static void validarEntrada(double[] notas) {
-        if (notas == null) {
-            throw new IllegalArgumentException("El array de notas no puede ser null");
-        }
-        if (notas.length == 0) {
-            throw new IllegalArgumentException("El array de notas no puede estar vacío");
-        }
-    }
-    
-    private static double calcularSumaTotal(double[] notas) {
-        double suma = 0.0;
-        for (double nota : notas) {
-            if (nota < 0.0 || nota > 10.0) {
-                throw new IllegalArgumentException("Nota fuera de rango: " + nota);
+public class CalculoNotasOrganizado {
+    public static void main(String[] args) {
+        // Paso 1: leer las notas
+        int cantidadNotas = 5;
+        double sumaTotal = 0;
+        int contador = 0;
+
+        while (contador < cantidadNotas) {
+            String textoNota = IO.readln("Introduce la nota " + (contador + 1) + ": ");
+
+            // Paso 2: validar cada nota antes de sumarla
+            if (Teclado.esDecimal(textoNota)) {
+                double nota = Double.parseDouble(textoNota);
+                if (nota >= 0.0 && nota <= 10.0) {
+                    sumaTotal += nota; // Paso 3: acumular
+                } else {
+                    IO.println("Nota fuera de rango: " + nota);
+                }
+            } else {
+                IO.println("Entrada no válida.");
             }
-            suma += nota;
+            contador++;
         }
-        return suma;
+
+        // Paso 4: calcular y mostrar el resultado
+        IO.println("Promedio: " + (sumaTotal / cantidadNotas));
     }
 }
 ```
+
+[!NOTE]
+En UT4 aprenderemos a dividir este mismo código en métodos independientes (leerNotas, validar, calcularPromedio, mostrarResultado), lo que hará el código aún más claro y reutilizable.
 
 **🚫 Evitar duplicación:**
 
 ```java
-// ❌ Código duplicado
-public static void procesarNotasGrupoA(double[] notas) {
-    double suma = 0;
-    for (double nota : notas) {
-        suma += nota;
-    }
-    double promedio = suma / notas.length;
-    System.out.println("Promedio Grupo A: " + promedio);
+// ❌ Código duplicado: la misma lógica de cálculo repetida dos veces
+double sumaGrupoA = 0;
+int contadorA = 0;
+while (contadorA < 3) {
+    sumaGrupoA += Double.parseDouble(IO.readln("Nota Grupo A: "));
+    contadorA++;
 }
+IO.println("Promedio Grupo A: " + (sumaGrupoA / 3));
 
-public static void procesarNotasGrupoB(double[] notas) {
-    double suma = 0;
-    for (double nota : notas) {
-        suma += nota;
-    }
-    double promedio = suma / notas.length;
-    System.out.println("Promedio Grupo B: " + promedio);
+double sumaGrupoB = 0;
+int contadorB = 0;
+while (contadorB < 3) {
+    sumaGrupoB += Double.parseDouble(IO.readln("Nota Grupo B: "));
+    contadorB++;
 }
-
-// ✅ Código reutilizable
-public static void procesarNotasGrupo(String nombreGrupo, double[] notas) {
-    double promedio = calcularPromedio(notas);
-    System.out.println("Promedio " + nombreGrupo + ": " + promedio);
-}
-
-public static double calcularPromedio(double[] notas) {
-    double suma = 0;
-    for (double nota : notas) {
-        suma += nota;
-    }
-    return suma / notas.length;
-}
+IO.println("Promedio Grupo B: " + (sumaGrupoB / 3));
 ```
+[!IMPORTANT]
+En UT4 aprenderemos a extraer esta lógica repetida a un único método reutilizable (por ejemplo, calcularPromedio(...)), eliminando la duplicación de forma definitiva. Por ahora, saber identificar la duplicación ya es un primer paso útil.
 
-> [!WARNING]
-> La depuración es un proceso iterativo. No esperes resolver todos los errores de una vez.
+[!WARNING]
+La depuración es un proceso iterativo. No esperes resolver todos los errores de una vez.
 
-> [!CAUTION]
-> Siempre haz copias de seguridad del código antes de implementar cambios significativos durante la depuración.
+[!CAUTION]
+Siempre haz copias de seguridad del código antes de implementar cambios significativos durante la depuración.
 
 ## 9. Ejemplo práctico de depuración
 
@@ -1061,9 +1037,9 @@ public class BucleInfinito {
         int suma = 0;
         for (int i = 1; i != 10; i += 2) {  // ¡Problema aquí!
             suma += i;
-            System.out.println("i = " + i + ", suma = " + suma);
+            IO.println("i = " + i + ", suma = " + suma);
         }
-        System.out.println("Suma final: " + suma);
+        IO.println("Suma final: " + suma);
     }
 }
 ```
@@ -1084,9 +1060,9 @@ public class BucleCorregido {
         int suma = 0;
         for (int i = 1; i < 10; i += 2) {  // ✅ Corrección aplicada
             suma += i;
-            System.out.println("i = " + i + ", suma = " + suma);
+            IO.println("i = " + i + ", suma = " + suma);
         }
-        System.out.println("Suma final: " + suma);
+        IO.println("Suma final: " + suma);
     }
 }
 ```
@@ -1099,16 +1075,20 @@ public class BucleCorregido {
 ```java
 public class ErrorLogica {
     public static void main(String[] args) {
-        int[] notas = {8, 7, 9, 6, 8};
+        int cantidadNotas = 5;
         int aprobados = 0;
-        
-        for (int i = 0; i <= notas.length; i++) {  // ¡Error de límite!
-            if (notas[i] >= 5) {  // ¡Posible IndexOutOfBoundsException!
+        int contador = 0;
+
+        while (contador <= cantidadNotas) {  // ¡Error de límite! Pide 6 notas en vez de 5
+            String textoNota = IO.readln("Introduce la nota " + (contador + 1) + ": ");
+            double nota = Double.parseDouble(textoNota);
+            if (nota >= 5) {
                 aprobados++;
             }
+            contador++;
         }
-        
-        System.out.println("Estudiantes aprobados: " + aprobados);
+
+        IO.println("Estudiantes aprobados: " + aprobados);
     }
 }
 ```
@@ -1116,31 +1096,31 @@ public class ErrorLogica {
 **Traza de depuración:**
 
 
-| Iteración | i | notas[i] | aprobados | ¿Error? |
-| :-- | :-- | :-- | :-- | :-- |
-| 1 | 0 | 8 | 1 | No |
-| 2 | 1 | 7 | 2 | No |
-| 3 | 2 | 9 | 3 | No |
-| 4 | 3 | 6 | 4 | No |
-| 5 | 4 | 8 | 5 | No |
-| 6 | 5 | ??? | ??? | ✅ IndexOutOfBoundsException |
+| Iteración | contador | ¿Se pide nota?         | ¿Error?                     |
+| --------- | -------- | ---------------------- | --------------------------- |
+| 1–5       | 0–4      | Sí (esperado)          | No                          |
+| 6         | 5        | Sí, no debería pedirse | ✅ Bug: pide una nota de más |
 
 **Código corregido:**
 
 ```java
 public class ErrorLogicaCorregido {
     public static void main(String[] args) {
-        int[] notas = {8, 7, 9, 6, 8};
+        int cantidadNotas = 5;
         int aprobados = 0;
-        
-        // ✅ Cambiar <= por < para evitar salirse del array
-        for (int i = 0; i < notas.length; i++) {
-            if (notas[i] >= 5) {
+        int contador = 0;
+
+        // ✅ Cambiar <= por < para pedir exactamente cantidadNotas notas
+        while (contador < cantidadNotas) {
+            String textoNota = IO.readln("Introduce la nota " + (contador + 1) + ": ");
+            double nota = Double.parseDouble(textoNota);
+            if (nota >= 5) {
                 aprobados++;
             }
+            contador++;
         }
-        
-        System.out.println("Estudiantes aprobados: " + aprobados);
+
+        IO.println("Estudiantes aprobados: " + aprobados);
     }
 }
 ```
@@ -1153,14 +1133,14 @@ public class ErrorLogicaCorregido {
 ```java
 public class BreakpointCondicional {
     public static void main(String[] args) {
-        int[] numeros = {1, 5, 3, 8, 2, 9, 4, 7, 6};
-        int objetivo = 8;
-        
-        for (int i = 0; i < numeros.length; i++) {
-            if (numeros[i] == objetivo) {  // ← Breakpoint condicional aquí
-                System.out.println("Encontrado " + objetivo + " en posición " + i);
+        int numero = 1;
+
+        while (numero <= 100) {
+            if (numero % 7 == 0 && numero > 30) {  // ← Breakpoint condicional aquí
+                IO.println("Encontrado: primer múltiplo de 7 mayor que 30 = " + numero);
                 break;
             }
+            numero++;
         }
     }
 }
@@ -1168,7 +1148,7 @@ public class BreakpointCondicional {
 
 **Configuración del breakpoint condicional:**
 
-- **Condición**: `numeros[i] == objetivo`
+- **Condición**: `numero == objetivo`
 - **Efecto**: Solo se para cuando encuentra el número buscado
 - **Ventaja**: No para en cada iteración, solo cuando es relevante
 
@@ -1177,7 +1157,6 @@ public class BreakpointCondicional {
 
 **Resultado de la depuración:**
 
-- El programa se para exactamente cuando `i = 3` y `numeros = 8`
 - Permite inspeccionar el estado en el momento exacto del hallazgo
 - Facilita la verificación de que la lógica de búsqueda es correcta
 
@@ -1193,5 +1172,9 @@ public class BreakpointCondicional {
 > [!NOTE]
 > La depuración y las pruebas son habilidades esenciales para cualquier programador profesional. Dominar estas técnicas te permitirá desarrollar software más robusto, eficiente y fácil de mantener.
 
+---
 <p align="center">📚 <em>Fin del apartado UT2.4 - Pruebas y depuración</em></p>
+
+---
+<small>© 2026 José Ramón Mas Davó. Todo el material docente original se distribuye bajo licencia [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/). Para más detalles, consulta el archivo [`LICENSE`](../LICENSE) del repositorio.</small>
 
