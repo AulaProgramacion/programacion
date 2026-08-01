@@ -2,343 +2,989 @@
 
 ## 📋 Índice de contenidos
 
-1. [Introducción: Control de entrada por teclado](#1-introducci%C3%B3n-control-de-entrada-por-teclado)
-    1. [La clase Teclado](#11-la-clase-teclado)
-    2. [Validación con if](#12-validaci%C3%B3n-con-if)
-    3. [Buenas prácticas en la entrada de datos](#13-buenas-pr%C3%A1cticas-en-la-entrada-de-datos)
-    4. [Ejemplo: menú con validación](#14-ejemplo-men%C3%BA-con-validaci%C3%B3n)
-2. [Práctica 7: Control de datos en todos los programas](#2-pr%C3%A1ctica-7-control-de-datos-en-todos-los-programas)
-    1. [Objetivos y tareas](#21-objetivos-y-tareas)
-    2. [Ejemplo de implementación](#22-ejemplo-de-implementaci%C3%B3n)
-    3. [Criterios de evaluación](#23-criterios-de-evaluaci%C3%B3n)
-3. [Anexo: Scanner y validación de tipo (código legacy)](#3-anexo-scanner-y-validaci%C3%B3n-de-tipo-c%C3%B3digo-legacy)
+1. [Introducción a las estructuras de repetición](#1-introducci%C3%B3n-a-las-estructuras-de-repetici%C3%B3n)
+2. [Control de estructuras iterativas](#2-control-de-estructuras-iterativas)
+3. [Estructura iterativa while](#3-estructura-iterativa-while)
+    1. [Sintaxis y diagrama de flujo](#31-sintaxis-y-diagrama-de-flujo)
+    2. [Buenas prácticas con contadores](#32-buenas-pr%C3%A1cticas-con-contadores)
+    3. [Práctica 8: Línea horizontal](#33-pr%C3%A1ctica-8-l%C3%ADnea-horizontal)
+    4. [Práctica 9: Personalización y validación de entrada](#34-pr%C3%A1ctica-9-personalizaci%C3%B3n-y-validaci%C3%B3n-de-entrada)
+    5. [Práctica 10: Tabla de multiplicar](#35-pr%C3%A1ctica-10-tabla-de-multiplicar)
+    6. [Práctica 11: Suma de múltiplos de 3](#36-pr%C3%A1ctica-11-suma-de-m%C3%BAltiplos-de-3)
+    7. [Práctica 12: Resto sin operador %](#37-pr%C3%A1ctica-12-resto-sin-operador-)
+    8. [Práctica 13: Control mejorado de entrada](#38-pr%C3%A1ctica-13-control-mejorado-de-entrada)
+4. [Estructura iterativa do-while](#4-estructura-iterativa-do-while)
+    1. [Sintaxis y diagrama de flujo](#41-sintaxis-y-diagrama-de-flujo)
+    2. [Práctica 14: Validación de entrada con do-while](#42-pr%C3%A1ctica-14-validaci%C3%B3n-de-entrada-con-do-while)
+    3. [Práctica 15: Aplicación de validación a otros programas](#43-pr%C3%A1ctica-15-aplicaci%C3%B3n-de-validaci%C3%B3n-a-otros-programas)
+5. [Estructura iterativa for](#5-estructura-iterativa-for)
+    1. [Sintaxis y equivalencia con while](#51-sintaxis-y-equivalencia-con-while)
+    2. [Práctica 16: Tabla de multiplicar con for](#52-pr%C3%A1ctica-16-tabla-de-multiplicar-con-for)
+    3. [Práctica 17: Suma de múltiplos con for](#53-pr%C3%A1ctica-17-suma-de-m%C3%BAltiplos-con-for)
+    4. [Práctica 18: Tabla personalizada](#54-pr%C3%A1ctica-18-tabla-personalizada)
+6. [Sentencias break y continue](#6-sentencias-break-y-continue)
+7. [Traza de variables](#7-traza-de-variables)
+    1. [¿Qué es la traza de variables?](#71-qu%C3%A9-es-la-traza-de-variables)
+    2. [Ejemplo y tabla de traza](#72-ejemplo-y-tabla-de-traza)
+    3. [Consejos para realizar trazas](#73-consejos-para-realizar-trazas)
 
-## 1. Introducción: Control de entrada por teclado
+## 1. Introducción a las estructuras de repetición
 
-En cualquier aplicación interactiva, **leer y validar datos introducidos por el usuario** es fundamental para evitar errores y asegurar el correcto funcionamiento del programa.
+Las **estructuras de repetición** (o bucles) permiten ejecutar una secuencia de instrucciones múltiples veces mientras se cumpla una condición. Son fundamentales para evitar la redundancia y procesar grandes cantidades de datos de forma eficiente.
 
-### Problemas comunes sin validación
+### Conceptos fundamentales:
 
-- **Excepciones no controladas** que terminan el programa abruptamente
-- **Comportamientos inesperados** con datos no válidos
-- **Experiencia de usuario deficiente** sin mensajes de error claros
+- **Bucle**: Conjunto de instrucciones que se han de repetir un cierto número de veces
+- **Iteración**: Cada ejecución individual del bucle
+- **Condición de parada**: Expresión booleana que determina cuándo debe acabar el bucle
 
-> [!WARNING]
-> **Error típico del programador novato**: Asumir que el usuario siempre introducirá datos correctos.
+> [!NOTE]
+> Las estructuras de repetición nos permiten automatizar tareas que de otro modo requerirían escribir el mismo código decenas, cientos o incluso miles de veces. Sin ellas, sería prácticamente imposible crear programas que procesen listas de datos, realicen cálculos complejos o interactúen repetidamente con el usuario.
 
-La validación de entrada no solo previene errores, sino que también mejora significativamente la experiencia del usuario al proporcionar retroalimentación clara sobre qué tipo de datos se esperan.
+## 2. Control de estructuras iterativas
 
-### 1.1 La clase `Teclado`
+Para garantizar el correcto funcionamiento de los bucles, debemos **asegurar siempre que el bucle terminará**. En caso contrario, obtendremos un **bucle infinito** que puede bloquear el programa indefinidamente.
 
-Ya sabemos que `IO.readln` siempre devuelve un `String`, y que convertirlo directamente a número con `Integer.parseInt`/`Double.parseDouble` puede romper el programa si el texto no es válido. A partir de ahora usaremos una pequeña clase de apoyo, `Teclado`, que nos dice si un texto se puede convertir de forma segura:
+> [!CAUTION]
+> Un bucle infinito puede hacer que tu programa se cuelgue y consuma todos los recursos del sistema.
+
+```mermaid
+flowchart TD
+    A[Inicio del bucle] --> B{¿Condición verdadera?}
+    B -->|Sí| C[Ejecutar instrucciones del bucle]
+    C --> D[Modificar variable de control]
+    D --> B
+    B -->|No| E[Fin del bucle]
+    
+    style A fill:#90EE90
+    style E fill:#FFB6C1
+    style D fill:#FFE4B5
+```
+
+
+### 2.1 Variables de control
+
+Para evitar los bucles infinitos, utilizamos diferentes tipos de **variables de control** que nos permiten gestionar cuándo debe terminar el bucle.
+
+### 2.2 Tipos de variables de control
+
+#### 🔢 Contador
+
+- **Definición**: Variable que incrementa o decrementa en cada iteración el mismo valor
+- **Uso típico**: Controlar el número de iteraciones
+- **Ejemplo**: `i++`, `contador = contador + 1`
 
 ```java
-public class Teclado {
+int contador = 0;
+while (contador < 10) {
+    IO.println("Iteración: " + contador);
+    contador++; // Incrementa el contador
+}
+```
 
-    public static boolean esEntero(String texto) {
-        if (texto == null || texto.isBlank()) return false;
-        return texto.trim().matches("-?\\d+");
+
+#### 📊 Acumulador
+
+- **Definición**: Variable que aumenta o disminuye en cada iteración un valor que puede ser igual o diferente
+- **Uso típico**: Sumar valores, calcular totales
+- **Ejemplo**: `suma = suma + valor`, `producto = producto * num`
+
+```java
+int suma = 0;
+int i = 1;
+while (i <= 5) {
+    suma += i; // Acumula la suma de números del 1 al 5
+    i++;
+}
+IO.println("La suma es: " + suma); // Resultado: 15
+```
+
+#### 👁️ Centinela o semáforo
+
+- **Definición**: Variable (normalmente booleana) que cambia su valor para permitir o prohibir la ejecución de iteraciones
+- **Uso típico**: Controlar la entrada y salida del bucle basado en condiciones
+- **Ejemplo**: `encontrado = true`, `continuar = false`
+
+> [!WARNING]
+> En muchos cursos y libros académicos aparece como "semáforo" aunque técnicamente es más correcto "centinela", ya que el concepto de "semáforo" se usa para temas de programación concurrente.
+
+```java
+boolean encontrado = false;
+int numero = 0;
+while (!encontrado && numero < 100) {
+    if (numero % 7 == 0 && numero % 3 == 0) {
+        encontrado = true; // Centinela que termina el bucle
     }
+    numero++;
+}
+```
 
-    public static boolean esDecimal(String texto) {
-        if (texto == null || texto.isBlank()) return false;
-        String preparado = texto.trim().replace(',', '.');
-        return preparado.matches("-?\\d+(\\.\\d+)?");
-    }
+> [!WARNING]
+> Siempre debes tener una estrategia clara para modificar la condición del bucle dentro de su ejecución, de lo contrario crearás un bucle infinito.
 
-    public static boolean esBooleano(String texto) {
-        if (texto == null || texto.isBlank()) return false;
-        String limpio = texto.trim().toLowerCase();
-        return limpio.equals("true") || limpio.equals("false");
+## 3. Estructura iterativa while
+
+La estructura **while** ejecuta un bloque de instrucciones **mientras** se cumpla una condición booleana.
+
+### 3.1 Sintaxis y diagrama de flujo
+
+```java
+while (condición_booleana) {
+    // Instrucciones a ejecutar dentro del bucle
+}
+```
+
+```mermaid
+flowchart TD
+    A[Instrucciones anteriores] --> B[Inicio del bucle]
+    B --> C{¿Condición booleana?}
+    C -->|true| D[Instrucciones dentro del while]
+    D --> C
+    C -->|false| E[Fin del bucle]
+    E --> F[Instrucciones posteriores]
+```
+
+> [!IMPORTANT]
+> Si la condición es falsa desde el principio, el bloque **no se ejecuta nunca**.
+
+**Ejemplo básico:**
+
+```java
+public class EjemploWhile {
+    public static void main(String[] args) {
+        int contador = 0;
+        
+        while (contador < 5) {
+            IO.println("Contador: " + contador);
+            contador++; // CRUCIAL: incrementar el contador
+        }
+        
+        IO.println("Bucle terminado. Contador final: " + contador);
     }
 }
 ```
 
-> [!NOTE]
-> No es necesario que entendáis todavía cómo funciona `matches` en detalle (lo veremos en la unidad de expresiones regulares). De momento, usad estos métodos como una herramienta ya construida: os dicen `true` o `false` según si el texto es válido.
+### 3.2 Buenas prácticas con contadores
 
-### 1.2 Validación con `if`
-
-Los métodos de `Teclado` solo responden `true`/`false`; sois vosotros quienes decidís, con `if`, qué hacer con esa respuesta:
+- Los identificadores de los contadores suelen ser `i`, `j`, `k`, etc.
+- Los contadores suelen empezar en **0** en vez de 1, siguiendo el estándar de programación.
+- Es fundamental evitar bucles infinitos: asegúrate de que la condición de parada **puede cumplirse** y que el contador o la variable de control se modifica correctamente en cada iteración.
 
 ```java
-public class ValidacionSimple {
-    public static void main(String[] args) {
-        String entrada = IO.readln("Introduce tu edad: ");
+// ✅ BIEN - Estilo recomendado
+int i = 0;
+while (i < 10) {
+    IO.println(i);
+    i++;
+}
 
-        if (Teclado.esEntero(entrada)) {
-            int edad = Integer.parseInt(entrada);
-            IO.println("Tienes " + edad + " años");
+// ⚠️ FUNCIONA pero no sigue convenciones
+int contador = 1;
+while (contador <= 10) {
+    IO.println(contador);
+    contador++;
+}
+```
+
+
+### 3.3 Práctica 8: Línea horizontal
+
+**Enunciado:**
+
+Escribe un programa que dibuje una línea horizontal creada a base del símbolo '_' y que ocupe 100 posiciones.
+
+> [!NOTE]
+> Es importante que realices estas prácticas, hagas pruebas y anotes cualquier problema para preguntar al profesor.
+
+<details>
+<summary>💻 Solución con while</summary>
+
+```java
+public class LineaHorizontal {
+    public static void main(String[] args) {
+        int i = 0;
+        while (i < 100) {
+            IO.print("_");
+            i++;
+        }
+        IO.println(); // Salto de línea final
+    }
+}
+```
+
+</details>
+
+
+### 3.4 Práctica 9: Personalización y validación de entrada
+
+**Enunciado:**
+Modifica el programa anterior para que:
+
+- El número de barras bajas se pida por teclado (no como constante).
+- Se verifique que la entrada es un número entero. Si no lo es, el programa termina.
+
+<details>
+<summary>💻 Solución</summary>
+
+```java
+public class LineaPersonalizada {
+    public static void main(String[] args) {
+        String textoLongitud = IO.readln("Introduce el número de barras bajas: ");
+
+        if (!Teclado.esEntero(textoLongitud)) {
+            IO.println("Error: no has introducido un número entero válido.");
         } else {
-            IO.println("Error: debes introducir un número entero válido.");
+            int longitud = Integer.parseInt(textoLongitud);
+
+            if (longitud <= 0) {
+                IO.println("El número debe ser positivo.");
+            } else {
+                int i = 0;
+                while (i < longitud) {
+                    IO.print("_");
+                    i++;
+                }
+                IO.println();
+            }
         }
     }
 }
 ```
 
-> [!IMPORTANT]
-> Con las herramientas que conocemos hasta ahora, si el dato es incorrecto solo podemos **informar del error y continuar sin ese dato** (o terminar el programa). Todavía no sabemos "insistir" pidiéndolo de nuevo: eso requiere una estructura repetitiva (`while`), que veremos en la próxima unidad. Por ahora, `Teclado.esEntero`/`esDecimal` solo responden a la pregunta "¿es válido?"; qué hacer con la respuesta lo decidís vosotros con `if`.
+</details>
 
-### 1.3 Buenas prácticas en la entrada de datos
 
-- **Valida SIEMPRE** antes de convertir cualquier dato introducido por el usuario.
-- **Proporciona mensajes de error claros** para que el usuario entienda qué ha hecho mal.
-- Con `IO.readln` no existe el problema de "limpiar el buffer" que sí tenía `Scanner` (ver Anexo): cada `readln` consume siempre una línea completa.
+### 3.5 Práctica 10: Tabla de multiplicar
 
-### 1.4 Ejemplo: menú con validación
+**Enunciado:**
+
+Realiza un programa que muestre la tabla de multiplicar de un número que se introducirá por teclado, respetando las recomendaciones indicadas anteriormente. Si no se introduce un valor entero, termina el programa.
+
+<details>
+<summary>💻 Solución</summary>
 
 ```java
-public class MenuConValidacion {
+public class TablaMultiplicar {
     public static void main(String[] args) {
-        IO.println("¡Bienvenido al sistema de gestión! 🎉");
-        IO.println("\n🏪 MENÚ PRINCIPAL");
-        IO.println("================");
-        IO.println("1️⃣  Ver productos");
-        IO.println("2️⃣  Añadir producto");
-        IO.println("3️⃣  Eliminar producto");
-        IO.println("4️⃣  Calcular total");
-        IO.println("0️⃣  Salir");
+        String textoNumero = IO.readln("Introduce un número para la tabla de multiplicar: ");
 
-        String textoOpcion = IO.readln("\n👉 Selecciona una opción (0-4): ");
+        if (!Teclado.esEntero(textoNumero)) {
+            IO.println("Error: no has introducido un número entero válido.");
+        } else {
+            int numero = Integer.parseInt(textoNumero);
 
-        if (Teclado.esEntero(textoOpcion)) {
-            int opcion = Integer.parseInt(textoOpcion);
+            IO.println("\nTabla de multiplicar del " + numero + ":");
+            IO.println("====================================");
 
-            if (opcion >= 0 && opcion <= 4) {
-                switch (opcion) {
-                    case 1:
-                        IO.println("📋 Mostrando productos...");
-                        break;
-                    case 2:
-                        IO.println("➕ Añadiendo producto...");
-                        break;
-                    case 3:
-                        IO.println("🗑️ Eliminando producto...");
-                        break;
-                    case 4:
-                        IO.println("🧮 Calculando total...");
-                        break;
-                    case 0:
-                        IO.println("👋 ¡Hasta luego!");
-                        break;
+            int i = 0;
+            while (i <= 10) {
+                System.out.printf("%d x %d = %d%n", numero, i, numero * i);
+                i++;
+            }
+        }
+    }
+}
+```
+
+</details>
+
+
+
+### 3.6 Práctica 11: Suma de múltiplos de 3
+
+**Enunciado:**
+Crea un programa que permita sumar todos los valores enteros múltiples de 3, dentro de un intervalo entre 0 y un valor introducido por teclado.
+
+Resuelve este programa de 2 maneras:
+
+- Haciendo uso del operador %
+- Sin hacer uso del operador %
+
+Comprueba los datos de entrada. Si no son correctos, termina el programa.
+
+<details>
+<summary>💻 Solución 1: Con operador %</summary>
+
+```java
+public class SumaMultiples3Operador {
+    public static void main(String[] args) {
+        String textoMaximo = IO.readln("Introduce el valor máximo: ");
+
+        if (!Teclado.esEntero(textoMaximo)) {
+            IO.println("Error en los datos de entrada.");
+        } else {
+            int maximo = Integer.parseInt(textoMaximo);
+
+            if (maximo < 0) {
+                IO.println("El valor debe ser positivo.");
+            } else {
+                int suma = 0;
+                int i = 0;
+
+                while (i <= maximo) {
+                    if (i % 3 == 0) {
+                        suma += i;
+                        IO.println("Múltiplo encontrado: " + i);
+                    }
+                    i++;
+                }
+
+                IO.println("La suma de los múltiplos de 3 entre 0 y " + maximo + " es: " + suma);
+            }
+        }
+    }
+}
+```
+
+</details>
+<details>
+<summary>💻 Solución 2: Sin operador %</summary>
+
+```java
+public class SumaMultiples3SinOperador {
+    public static void main(String[] args) {
+        String textoMaximo = IO.readln("Introduce el valor máximo: ");
+
+        if (!Teclado.esEntero(textoMaximo)) {
+            IO.println("Error en los datos de entrada.");
+        } else {
+            int maximo = Integer.parseInt(textoMaximo);
+
+            if (maximo < 0) {
+                IO.println("El valor debe ser positivo.");
+            } else {
+                int suma = 0;
+                int i = 0;
+
+                while (i <= maximo) {
+                    suma += i;
+                    IO.println("Múltiplo encontrado: " + i);
+                    i += 3;
+                }
+
+                IO.println("La suma de los múltiplos de 3 entre 0 y " + maximo + " es: " + suma);
+            }
+        }
+    }
+}
+```
+
+</details>
+
+### 3.7 Práctica 12: Resto sin operador %
+
+**Enunciado:**
+Realiza un programa que, dados dos números enteros, calcule el residuo de dividir uno por el otro sin hacer uso del operador %. Comprueba los datos de entrada. Si no son correctos, termina el programa.
+
+<details>
+<summary>💻 Solución</summary>
+
+```java
+public class ResiduoSinOperador {
+    public static void main(String[] args) {
+        String textoDividendo = IO.readln("Introduce el dividendo: ");
+        String textoDivisor = IO.readln("Introduce el divisor: ");
+
+        if (!Teclado.esEntero(textoDividendo) || !Teclado.esEntero(textoDivisor)) {
+            IO.println("Error: Datos de entrada incorrectos.");
+        } else {
+            int dividendo = Integer.parseInt(textoDividendo);
+            int divisor = Integer.parseInt(textoDivisor);
+
+            if (divisor == 0) {
+                IO.println("Error: No se puede dividir entre cero.");
+            } else {
+                int dividendoAbs = Math.abs(dividendo);
+                int divisorAbs = Math.abs(divisor);
+                int residuo = dividendoAbs;
+
+                while (residuo >= divisorAbs) {
+                    residuo -= divisorAbs;
+                }
+
+                if (dividendo < 0 && residuo > 0) {
+                    residuo = divisorAbs - residuo;
+                }
+
+                IO.println("El residuo de " + dividendo + " / " + divisor + " es: " + residuo);
+            }
+        }
+    }
+}
+```
+
+</details>
+
+
+### 3.8 Práctica 13: Control mejorado de entrada
+
+**Enunciado:**
+Realiza un mejor control de los datos introducidos por teclado. En este caso, en lugar de terminar el programa, debe volver a preguntar por ese dato si se introduce erróneamente. Hazlo en un programa aparte, donde únicamente pida un entero y realice esta revisión hasta que el dato se introduzca correctamente.
+
+<details>
+<summary>💻 Solución</summary>
+
+```java
+public class ControlEntradaMejorado {
+    public static void main(String[] args) {
+        int numero = 0;
+        boolean datosValidos = false;
+
+        while (!datosValidos) {
+            String texto = IO.readln("Introduce un número entero: ");
+
+            if (Teclado.esEntero(texto)) {
+                numero = Integer.parseInt(texto);
+                datosValidos = true;
+                IO.println("✅ Número introducido correctamente: " + numero);
+            } else {
+                IO.println("❌ Error: Debes introducir un número entero válido.");
+                IO.println("💡 Intenta de nuevo...");
+            }
+        }
+    }
+}
+```
+
+</details>
+
+## 4. Estructura iterativa do-while
+
+La estructura **do-while** permite repetir la ejecución mientras se verifique una condición lógica, con la particularidad de que **como mínimo se ejecutará una vez** el bloque de instrucciones definido.
+
+### 4.1 Sintaxis y diagrama de flujo
+
+```java
+do {
+    // Instrucciones a ejecutar dentro del bucle
+} while (condición_booleana);
+```
+
+```mermaid
+flowchart TD
+    A[Instrucciones anteriores] --> B[Inicio del bucle]
+    B --> C[Instrucciones dentro del do-while]
+    C --> D{¿Condición booleana?}
+    D -->|true| C
+    D -->|false| E[Fin del bucle]
+    E --> F[Instrucciones posteriores]
+```
+
+> [!NOTE]
+> La principal diferencia con `while` es que `do-while` **siempre ejecuta el bloque al menos una vez**, independientemente de la condición inicial.
+
+![While vs Do-while](https://i.redd.it/6wksqjmmyw321.jpg)
+
+#### Cuándo usar do-while
+
+La estructura `do-while` es especialmente útil cuando:
+
+- Necesitas ejecutar el código al menos una vez antes de evaluar la condición
+- Estás pidiendo datos al usuario y quieres asegurar al menos una entrada
+- Implementas menús interactivos
+- Realizas validaciones donde el primer intento debe ejecutarse siempre
+
+**Ejemplo práctico - Validación de entrada:**
+
+```java
+public class ValidacionDoWhile {
+    public static void main(String[] args) {
+        int numero = -1;
+        boolean valido;
+
+        do {
+            String texto = IO.readln("Introduce un número entre 1 y 10: ");
+
+            if (Teclado.esEntero(texto)) {
+                numero = Integer.parseInt(texto);
+                valido = (numero >= 1 && numero <= 10);
+                if (!valido) {
+                    IO.println("El número debe estar entre 1 y 10.");
                 }
             } else {
-                IO.println("❌ Opción no válida. Debe ser entre 0 y 4");
+                valido = false;
+                IO.println("Error: Debes introducir un número entero.");
             }
-        } else {
-            IO.println("❌ Debes introducir un número entero");
+
+        } while (!valido);
+
+        IO.println("Número válido introducido: " + numero);
+    }
+}
+```
+
+### 4.2 Práctica 14: Validación de entrada con do-while
+
+**Enunciado:**
+Realiza un programa que verifique la entrada por teclado de un número entero entre 0 y 10. El programa debe pedir el dato en caso de que la entrada sea errónea (ya lo hiciste con while). Utiliza ahora una estructura iterativa "do-while" para hacer esta revisión.
+
+<details>
+<summary>💻 Solución</summary>
+
+```java
+public class ValidacionDoWhile {
+    public static void main(String[] args) {
+        int numero = -1;
+        boolean valido;
+
+        do {
+            String texto = IO.readln("Introduce un número entre 0 y 10: ");
+
+            if (Teclado.esEntero(texto)) {
+                numero = Integer.parseInt(texto);
+                valido = (numero >= 0 && numero <= 10);
+                if (!valido) {
+                    IO.println("❌ El número debe estar entre 0 y 10.");
+                }
+            } else {
+                valido = false;
+                IO.println("❌ Error: Debes introducir un número entero.");
+            }
+
+        } while (!valido);
+
+        IO.println("✅ Número válido introducido: " + numero);
+    }
+}
+```
+
+</details>
+
+<details>
+<summary>💻 Solución corta</summary>
+
+```java
+public class ValidacionCompacta {
+    public static void main(String[] args) {
+        int numero;
+
+        while ((numero = Integer.parseInt(IO.readln("Introduce un número entre 0 y 10: "))) < 0 || numero > 10) {
+            IO.println("❌ Entrada no válida. Debe ser un número entero entre 0 y 10.");
+        }
+
+        IO.println("✅ Número válido introducido: " + numero);
+    }
+}
+```
+
+[!WARNING]
+Esta versión compacta no usa `Teclado.esEntero`: asume que el usuario siempre escribe un número. Si introduce texto no numérico, `Integer.parseInt` lanzará una excepción y el programa se detendrá. Es un compromiso aceptado a cambio de brevedad; la versión larga de arriba es la robusta.
+
+</details>
+
+
+### 4.3 Práctica 15: Aplicación de validación a otros programas
+
+**Enunciado:**
+Aplica la misma manera de pedir un dato correcto a los programas creados anteriormente y que sea oportuno hacerlo. Por ejemplo, al pedir un precio.
+
+<details>
+<summary>💻 Solución</summary>
+
+```java
+public class ValidacionPrecio {
+    public static void main(String[] args) {
+        double precio = -1;
+        boolean valido;
+
+        do {
+            String texto = IO.readln("Introduce un precio válido (mayor que 0): ");
+
+            if (Teclado.esDecimal(texto)) {
+                precio = Double.parseDouble(texto);
+                valido = (precio > 0);
+                if (!valido) {
+                    IO.println("❌ El precio debe ser mayor que cero.");
+                }
+            } else {
+                valido = false;
+                IO.println("❌ Error: Debes introducir un número decimal válido.");
+            }
+
+        } while (!valido);
+
+        System.out.printf("✅ Precio válido introducido: %.2f€%n", precio);
+    }
+}
+```
+
+</details>
+
+<details>
+<summary>💻 Solución corta</summary>
+
+```java
+public class ValidacionPrecioCompacta {
+    public static void main(String[] args) {
+        double precio;
+
+        while ((precio = Double.parseDouble(IO.readln("Introduce un precio válido (mayor que 0): "))) <= 0) {
+            IO.println("❌ Entrada no válida. Debe ser un número mayor que cero.");
+        }
+
+        System.out.printf("✅ Precio válido introducido: %.2f€%n", precio);
+    }
+}
+
+```
+
+</details>
+
+## 5. Estructura iterativa for
+
+La estructura **for** permite repetir un **número determinado de veces** un conjunto de instrucciones. Es especialmente útil cuando conocemos de antemano el número de iteraciones.
+
+### 5.1 Sintaxis y equivalencia con while
+
+
+```java
+for (inicialización_contador; expresión_booleana; increment_contador) {
+    // Instrucciones para ejecutar dentro del bucle
+}
+```
+
+```mermaid
+flowchart TD
+    A[Instrucciones anteriores] --> B[Inicialización contador]
+    B --> C{Expresión booleana}
+    C -->|false| G[Fin del bucle]
+    C -->|true| D[Instrucciones dentro del bloque for]
+    D --> E[Incremento contador]
+    E --> C
+    G --> H[Instrucciones posteriores]
+```
+#### Partes del bucle for
+
+1. **Inicialización de contador**: Inicializa una variable de tipo entero que servirá como contador
+2. **Expresión booleana**: La condición lógica. Si es cierta se vuelve a repetir el cuerpo del bucle
+3. **Incremento**: Instrucción que modifica el contador. Esta instrucción se ejecuta al final de cada iteración
+
+> [!TIP]
+> El incremento puede ser también negativo (decremento) para contar hacia atrás.
+
+**Ejemplo básico:**
+
+```java
+public class EjemploFor {
+    public static void main(String[] args) {
+        // Imprimir números del 0 al 9
+        for (int i = 0; i < 10; i++) {
+            IO.println("Número: " + i);
+        }
+        
+        // Contar hacia atrás del 5 al 1
+        for (int j = 5; j >= 1; j--) {
+            IO.println("Cuenta atrás: " + j);
+        }
+    }
+}
+```
+
+#### Equivalencia con while
+
+> [!IMPORTANT]
+> Toda sentencia `for` tiene su equivalente mediante una sentencia `while`.
+
+```java
+// Bucle for
+for (int i = 0; i < 10; i++) {
+    IO.println(i);
+}
+
+// Equivalente con while
+int i = 0;              // Inicialización
+while (i < 10) {        // Condición
+    IO.println(i);
+    i++;                // Incremento
+}
+```
+
+**Consideraciones adicionales:**
+
+- El incremento/decremento del contador utiliza normalmente el operador unario (`++`) o (`--`)
+- El resultado de esta operación es el mismo que incrementar/decrementar en una unidad el contador
+- Se puede utilizar cualquier otra manera de incrementar un contador según las necesidades
+
+### 5.2 Práctica 16: Tabla de multiplicar con for
+
+**Enunciado:**
+Adapta el programa de la tabla de multiplicar usando la sentencia `for`.
+
+<details>
+<summary>💻 Solución</summary>
+
+```java
+public class TablaMultiplicarFor {
+    public static void main(String[] args) {
+        String texto = IO.readln("Introduce un número para la tabla de multiplicar: ");
+
+        while (!Teclado.esEntero(texto)) {
+            IO.println("❌ Error: Debes introducir un número entero válido.");
+            texto = IO.readln("Introduce un número para la tabla de multiplicar: ");
+        }
+
+        int numero = Integer.parseInt(texto);
+        IO.println("\nTabla de multiplicar del " + numero + ":");
+        IO.println("====================================");
+
+        for (int i = 0; i <= 10; i++) {
+            System.out.printf("%d x %d = %d%n", numero, i, numero * i);
+        }
+    }
+}
+```
+
+</details>
+
+
+### 5.3 Práctica 17: Suma de múltiplos con for
+
+**Enunciado:**
+Adapta el programa de la suma de múltiples de 3, haciendo uso de un bucle "for".
+
+<details>
+<summary>💻 Solución</summary>
+
+```java
+public class SumaMultiples3For {
+    public static void main(String[] args) {
+        String texto = IO.readln("Introduce el valor máximo: ");
+
+        while (!Teclado.esEntero(texto) || Integer.parseInt(texto) < 0) {
+            IO.println("❌ Error: Introduce un número entero positivo.");
+            texto = IO.readln("Introduce el valor máximo: ");
+        }
+
+        int maximo = Integer.parseInt(texto);
+        int suma = 0;
+
+        for (int i = 0; i <= maximo; i++) {
+            if (i % 3 == 0) {
+                suma += i;
+                IO.println("Múltiplo encontrado: " + i);
+            }
+        }
+
+        IO.println("La suma de los múltiplos de 3 entre 0 y " + maximo + " es: " + suma);
+    }
+}
+```
+
+</details>
+
+
+### 5.4 Práctica 18: Tabla personalizada
+
+**Enunciado:**
+Modifica la práctica 16. Esta vez, se preguntará al usuario el número máximo de la tabla de multiplicar a mostrar.
+
+<details>
+<summary>💻 Solución</summary>
+
+```java
+public class TablaPersonalizada {
+    public static void main(String[] args) {
+        String textoNumero = IO.readln("Introduce un número para la tabla de multiplicar: ");
+        while (!Teclado.esEntero(textoNumero)) {
+            IO.println("❌ Error: Debes introducir un número entero.");
+            textoNumero = IO.readln("Introduce un número para la tabla de multiplicar: ");
+        }
+        int numero = Integer.parseInt(textoNumero);
+
+        String textoMaximo = IO.readln("Introduce el número máximo de la tabla (mínimo 1): ");
+        while (!Teclado.esEntero(textoMaximo) || Integer.parseInt(textoMaximo) < 1) {
+            IO.println("❌ Error: Debes introducir un número entero mayor o igual que 1.");
+            textoMaximo = IO.readln("Introduce el número máximo de la tabla (mínimo 1): ");
+        }
+        int maximo = Integer.parseInt(textoMaximo);
+
+        IO.println("\nTabla de multiplicar del " + numero + " hasta " + maximo + ":");
+        IO.println("==================================================");
+
+        for (int i = 1; i <= maximo; i++) {
+            System.out.printf("%d x %d = %d%n", numero, i, numero * i);
         }
     }
 }
 ```
 
 > [!NOTE]
-> Este menú se muestra y se resuelve **una sola vez**. En la unidad de estructuras repetitivas aprenderemos a hacer que se repita automáticamente hasta que el usuario elija "Salir".
+> Estas prácticas te preparan para el siguiente apartado sobre pruebas y depuración. Dominar las estructuras de repetición es esencial para crear programas eficientes y robustos.
 
-## 2. Práctica 7: Control de datos en todos los programas
+## 6. Sentencias break y continue
 
-### 2.1 Objetivos y tareas
-
-**Objetivo:** Modificar todos los programas realizados hasta ahora para que implementen un **control robusto de los datos introducidos por teclado**.
-
-**Tareas a realizar:**
-
-- Revisar cada programa desarrollado hasta este punto.
-- Añadir validación con `Teclado.esEntero`/`esDecimal` para todas las entradas del usuario.
-- Incluir mensajes de error informativos y claros con `if`.
-- Probar con entradas incorrectas y comprobar que el programa informa del error sin romperse.
-
-### 2.2 Ejemplo de implementación
-
-**Versión sin control de datos (NO RECOMENDADO):**
-
-```java
-String textoNum = IO.readln("Introduce un número: ");
-int num = Integer.parseInt(textoNum); // Puede fallar si la entrada no es un entero
-```
-
-**Versión con control de datos (RECOMENDADO):**
-
-```java
-String textoNum = IO.readln("Introduce un número entero no negativo: ");
-
-if (Teclado.esEntero(textoNum)) {
-    int num = Integer.parseInt(textoNum);
-    if (num < 0) {
-        IO.println("⚠️ Error: el número no puede ser negativo.");
-    } else {
-        IO.println("Número válido introducido: " + num);
-    }
-} else {
-    IO.println("⚠️ Error: solo se aceptan números enteros.");
-}
-```
-
-> [!IMPORTANT]
-> Esta práctica es esencial para desarrollar programas robustos que no fallen cuando el usuario introduce datos incorrectos. Con las herramientas actuales, "robusto" significa que el programa **informa del error en vez de romperse**, no que insista automáticamente — eso llegará con las estructuras repetitivas.
-
-### 2.3 Criterios de evaluación
-
-- **Funcionalidad:** El programa debe funcionar correctamente tanto con entradas válidas como inválidas.
-- **Mensajes claros:** El usuario debe comprender qué ha hecho mal y por qué el programa no ha podido continuar.
-- **Robustez:** El programa nunca debe terminar de forma abrupta o inesperada por una `NumberFormatException` no controlada.
-- **Código limpio:** Uso adecuado de `Teclado.esEntero`/`esDecimal` y estructura `if` clara.
-
-> [!CAUTION]
-> Prueba tus programas con diferentes tipos de entradas: letras cuando se esperan números, valores fuera de rango, etc. El objetivo es que el programa nunca se bloquee ni lance excepciones inesperadas.
-
-## 3. Anexo: Scanner y validación de tipo (código legacy)
+El lenguaje Java ofrece las sentencias especiales `break` y `continue` para alterar el flujo de ejecución dentro de un bucle. Aunque pueden ser útiles en situaciones muy concretas, **es recomendable evitarlas siempre que sea posible** para mantener la claridad y predictibilidad del código.
 
 > [!WARNING]
-> Este anexo se explica de forma independiente al hilo principal de la asignatura. La clase `Scanner` fue durante muchos años la forma estándar de validar y leer datos por teclado en Java, y todavía la encontraréis en código existente y documentación antigua. Debéis conocerla para poder leer ese código, pero **no** es la forma de trabajar que seguiremos este curso.
+> **Evitar abuso de `break` y `continue`:** aunque Java lo permite, se valora negativamente su uso cuando existen alternativas estructuradas más claras.
 
-### 3.1 Inicialización del Scanner
+### `break`: salir del bucle
+
+Interrumpe la ejecución del bucle actual y **salta directamente** a la instrucción posterior al bucle.
 
 ```java
-import java.util.Scanner;
-
-public class EjemploScanner {
-    public static void main(String[] args) {
-        Scanner lector = new Scanner(System.in);
-
-        // ... código del programa ...
-
-        lector.close(); // IMPORTANTE: cerrar el Scanner al final
+for (int i = 0; i < 10; i++) {
+    if (i == 5) {
+        break; // Sale del bucle cuando i vale 5
     }
+    IO.println("i = " + i);
+}
+IO.println("Fin del bucle");
+```
+
+**Salida:**
+
+```text
+i = 0
+i = 1
+i = 2
+i = 3
+i = 4
+Fin del bucle
+```
+
+> [!NOTE]
+> Es común ver `break` en bucles que **buscan un elemento** y quieren salir en cuanto lo encuentran. Pero este comportamiento también se puede implementar mediante una condición de bucle adecuada.
+
+### `continue`: saltar a la siguiente iteración
+
+Hace que se **salte el resto del código dentro del bucle** y se pase directamente a la siguiente iteración.
+
+```java
+for (int i = 1; i <= 5; i++) {
+    if (i % 2 == 0) {
+        continue; // Saltar los pares
+    }
+    IO.println("Número impar: " + i);
 }
 ```
 
-**Métodos básicos de lectura:**
+**Salida:**
 
-| Método | Tipo de retorno | Descripción | Ejemplo |
-|---|---|---|---|
-| `next()` | `String` | Lee la siguiente palabra (hasta espacio en blanco) | `"Hola"` |
-| `nextLine()` | `String` | Lee toda la línea (hasta Enter) | `"Hola mundo"` |
-| `nextInt()` | `int` | Lee un número entero | `42` |
-| `nextDouble()` | `double` | Lee un número decimal | `3.14` |
-| `nextBoolean()` | `boolean` | Lee un valor booleano | `true`/`false` |
-
-**Ejemplo básico sin validación:**
-
-```java
-import java.util.Scanner;
-
-public class LecturaBasica {
-    public static void main(String[] args) {
-        Scanner lector = new Scanner(System.in);
-
-        System.out.print("Introduce tu nombre: ");
-        String nombre = lector.nextLine();
-
-        System.out.print("Introduce tu edad: ");
-        int edad = lector.nextInt(); // ⚠️ PELIGRO: Puede fallar
-
-        System.out.println("Hola " + nombre + ", tienes " + edad + " años");
-        lector.close();
-    }
-}
-```
-
-> [!CAUTION]
-> El código anterior fallará si el usuario introduce texto en lugar de un número para la edad.
-
-### 3.2 Métodos de validación de tipo (`hasNextX`)
-
-`Scanner` incluye métodos para comprobar el tipo de dato **antes** de leerlo:
-
-| Método | Tipo verificado | Descripción |
-|---|---|---|
-| `hasNextByte()` | `byte` | Verifica si la siguiente entrada es un byte válido |
-| `hasNextShort()` | `short` | Verifica si la siguiente entrada es un short válido |
-| `hasNextInt()` | `int` | Verifica si la siguiente entrada es un int válido |
-| `hasNextLong()` | `long` | Verifica si la siguiente entrada es un long válido |
-| `hasNextFloat()` | `float` | Verifica si la siguiente entrada es un float válido |
-| `hasNextDouble()` | `double` | Verifica si la siguiente entrada es un double válido |
-| `hasNextBoolean()` | `boolean` | Verifica si la siguiente entrada es un boolean válido |
-| `hasNext()` | `String` | Verifica si hay más entrada disponible |
-| `hasNextLine()` | `String` | Verifica si hay una línea completa disponible |
-
-**Ejemplo de uso con `if` (una sola comprobación, sin bucle):**
-
-```java
-Scanner lector = new Scanner(System.in);
-System.out.print("Introduce un número entero: ");
-
-if (lector.hasNextInt()) {
-    int numero = lector.nextInt();
-    lector.nextLine(); // Consume el resto de la línea
-    System.out.println("✅ Número introducido correctamente: " + numero);
-} else {
-    System.out.println("❌ Error: no has introducido un número entero válido.");
-}
-
-lector.close();
+```text
+Número impar: 1
+Número impar: 3
+Número impar: 5
 ```
 
 > [!TIP]
-> Los métodos `hasNextX()` **no consumen** la entrada, solo la verifican. Después de validar, aún necesitas leer el valor con el método correspondiente (`nextInt()`, `nextDouble()`, etc.).
+> En muchos casos, lo que se hace con `continue` se puede reescribir simplemente reorganizando el código del bucle, por ejemplo usando `if` con bloques bien estructurados.
 
-### 3.3 Buenas prácticas en la entrada de datos (legacy)
+### Diagrama resumen (Mermaid)
 
-- **Valida SIEMPRE** antes de leer cualquier dato introducido por el usuario.
-- **Proporciona mensajes de error claros** para guiar al usuario.
-- **Cierra el Scanner** al final del programa con `lector.close()` para liberar recursos.
+```mermaid
+flowchart TD
+    A[Inicio del bucle] --> B{Condición verdadera?}
+    B -->|No| Z[Fin del bucle]
+    B -->|Sí| C[Instrucción 1]
+    C --> D{¿break?}
+    D -->|Sí| Z
+    D -->|No| E{¿continue?}
+    E -->|Sí| B
+    E -->|No| F[Instrucciones restantes]
+    F --> B
+```
 
-> [!WARNING]
-> No cerrar el `Scanner` puede provocar advertencias del compilador y posibles problemas de recursos.
+---
 
-### 3.4 Ejemplo: menú con validación (legacy)
+### Buenas prácticas y recomendaciones
+
+| Situación                                 | Recomendación                                     |
+| ----------------------------------------- | ------------------------------------------------- |
+| Uso puntual y justificado de `break`      | ✔ Aceptable (ej. salida por condición encontrada) |
+| Uso habitual y múltiple en un mismo bucle | ❌ Desaconsejado                                   |
+| Uso de `continue` para saltar condiciones | ❌ Reestructurar mejor con `if-else`               |
+| Claridad del flujo del programa           | ✔ Prioridad absoluta                              |
+
+### Ejemplo sin `break`
 
 ```java
-import java.util.Scanner;
-
-public class MenuConValidacionLegacy {
-    public static void main(String[] args) {
-        Scanner lector = new Scanner(System.in);
-
-        System.out.println("¡Bienvenido al sistema de gestión! 🎉");
-        System.out.println("\n🏪 MENÚ PRINCIPAL");
-        System.out.println("================");
-        System.out.println("1️⃣  Ver productos");
-        System.out.println("2️⃣  Añadir producto");
-        System.out.println("3️⃣  Eliminar producto");
-        System.out.println("4️⃣  Calcular total");
-        System.out.println("0️⃣  Salir");
-        System.out.print("\n👉 Selecciona una opción (0-4): ");
-
-        if (lector.hasNextInt()) {
-            int opcion = lector.nextInt();
-
-            if (opcion >= 0 && opcion <= 4) {
-                switch (opcion) {
-                    case 1:
-                        System.out.println("📋 Mostrando productos...");
-                        break;
-                    case 2:
-                        System.out.println("➕ Añadiendo producto...");
-                        break;
-                    case 3:
-                        System.out.println("🗑️ Eliminando producto...");
-                        break;
-                    case 4:
-                        System.out.println("🧮 Calculando total...");
-                        break;
-                    case 0:
-                        System.out.println("👋 ¡Hasta luego!");
-                        break;
-                }
-            } else {
-                System.out.println("❌ Opción no válida. Debe ser entre 0 y 4");
-            }
-        } else {
-            System.out.println("❌ Debes introducir un número entero");
-        }
-
-        lector.close();
+final int VALOR_BUSCADO = 7;
+boolean encontrado = false;
+int i = 0;
+while (i < 10 && !encontrado) {
+    if (i == VALOR_BUSCADO) {
+        encontrado = true;
+    } else {
+        IO.println("i = " + i);
     }
+    i++;
 }
 ```
 
-<p align="center">📚 <em>Fin del apartado UT2.2 - Programación estructurada: Entrada por teclado y control de datos</em></p>
+o incluso
 
-***
+```java
+final int VALOR_BUSCADO = 7;
+boolean encontrado = false;
+int i = 0;
+while (i < 10 && i != VALOR_BUSCADO) {
+    IO.println("i = " + i);
+    i++;
+}
+```
+
+Ambas versiones evitan el uso de `break` y hacen que el flujo de ejecución sea más claro y explícito. Siempre que puedas expresar la lógica usando condiciones en el `while`, es preferible a interrumpir el bucle de forma abrupta.
+
+### En resumen
+
+- `break` y `continue` **no son errores**, pero **se deben usar con criterio**.
+- Se valora positivamente el uso de **estructuras legibles**.
+- Usa `break` solo si está **muy justificado** y mejora la claridad.
+- Evita `continue` y opta por `if` correctamente estructurados.
+
+> [!IMPORTANT]
+> Piensa siempre en quien leerá tu código. A veces una solución más larga pero más clara es mejor que una más corta pero confusa.
+
+## 7. Traza de variables
+
+### 7.1 ¿Qué es la traza de variables?
+
+En programación, **realizar la traza de una variable** se refiere a hacer un seguimiento desde su declaración hasta su eliminación de memoria, de los valores que va adquiriendo en cada momento.
+
+La traza de variables es una técnica de **depuración manual** que consiste en:
+
+- **Seguir paso a paso** la ejecución del programa
+- **Anotar los valores** de las variables en cada momento
+- **Identificar errores** en la lógica del programa
+- **Comprender el comportamiento** de las estructuras de repetición
+
+> [!IMPORTANT]
+> A partir de ahora, cuando utilices estructuras repetitivas y no obtengas el resultado que esperabas, tendrás que crear trazas de variables para observar el funcionamiento paso a paso del programa. Más adelante hablaremos de la depuración con herramientas automáticas.
+
+### 7.2 Ejemplo y tabla de traza
+
+Consideremos este código:
+
+```java
+int suma = 0;
+for (int i = 1; i <= 3; i++) {
+    suma += i * 2;
+    IO.println("i=" + i + ", suma=" + suma);
+}
+```
+
+**Tabla de traza:**
+
+| Iteración | i | suma antes | operación | suma después | salida |
+| :-- | :-- | :-- | :-- | :-- | :-- |
+| 1 | 1 | 0 | 0 + (1*2) | 2 | i=1, suma=2 |
+| 2 | 2 | 2 | 2 + (2*2) | 6 | i=2, suma=6 |
+| 3 | 3 | 6 | 6 + (3*2) | 12 | i=3, suma=12 |
+
+### 7.3 Consejos para realizar trazas
+
+1. **Sé sistemático**: anota todos los cambios de variables.
+2. **Utiliza tablas**: organiza la información de forma clara.
+3. **Marca las iteraciones**: numera cada vuelta del bucle.
+4. **Verifica condiciones**: comprueba cuándo cambian las condiciones booleanas.
+5. **Identifica patrones**: busca comportamientos repetitivos o inesperados.
+
+> [!TIP]
+> La traza manual es especialmente útil antes de aprender a usar depuradores automáticos. Más adelante se estudiarán herramientas específicas para depuración.
+
+---
+<p align="center">📚 <em>Fin del apartado UT2.3 - Estructuras de repetición</em></p>
+
+---
+<small>© 2026 José Ramón Mas Davó. Todo el material docente original se distribuye bajo licencia [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/). Para más detalles, consulta el archivo [`LICENSE`](../LICENSE) del repositorio.</small>
